@@ -47,14 +47,26 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public RelayCommand NavigateToHomeCommand { get; set; }
-        public RelayCommand NavigateToSearchKierowcyCommand { get; set; }
+        public RelayCommand NavigateToHome { get; set; }
+        public RelayCommand NavigateToDriver { get; set; }
+        public RelayCommand NavigateToRides { get; set; }
+        public RelayCommand NavigateToCars { get; set; }
+        public RelayCommand NavigateToAddresses { get; set; }
+        public RelayCommand NavigateToFuelTypes { get; set; }
+        public RelayCommand NavigateToCargoTypes { get; set; }
+        public RelayCommand NavigateToConfiguration { get; set; }
         public MainWindowViewModel(INavigationService navigation)
         {
             Txt = "eoeoeoeoeooe";
             Navigation = navigation;
-            NavigateToHomeCommand = new(_ => { Navigation.NavigateTo<HomeViewModel>(); });
-            NavigateToSearchKierowcyCommand = new(_ => { Navigation.NavigateTo<DriverViewModel>(); });
+            NavigateToHome = new(_ => { Navigation.NavigateTo<HomeViewModel>(); });
+            NavigateToDriver = new(_ => { Navigation.NavigateTo<DriverViewModel>(); });
+            NavigateToRides = new(_ => { Navigation.NavigateTo<RidesViewModel>(); });
+            NavigateToCars = new(_ => { Navigation.NavigateTo<CarsViewModel>(); });
+            NavigateToAddresses = new(_ => { Navigation.NavigateTo<AddressesViewModel>(); });
+            NavigateToFuelTypes = new(_ => { Navigation.NavigateTo<FuelTypesViewModel>(); });
+            NavigateToCargoTypes = new(_ => { Navigation.NavigateTo<CargoTypesViewModel>(); });
+            NavigateToConfiguration = new(_ => { Navigation.NavigateTo<ConfigurationViewModel>(); });
         }
     }
 }

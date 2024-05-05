@@ -1,0 +1,73 @@
+﻿<UserControl
+    x:Class="TransportationAnalyticsHub.MVVM.View.CargoTypesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TransportationAnalyticsHub.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="680"
+    d:DesignWidth="1030"
+    mc:Ignorable="d">
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" MinHeight="80" />
+            <RowDefinition Height="90*" />
+        </Grid.RowDefinitions>
+
+
+        <StackPanel
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Command="{Binding Add}"
+                Content="Add"
+                Style="{StaticResource CRUDButtonTheme}" />
+            <Button
+                Command="{Binding Update}"
+                Content="Update"
+                Style="{StaticResource CRUDButtonTheme}" />
+            <Button
+                Command="{Binding Delete}"
+                Content="Delete"
+                Style="{StaticResource CRUDButtonTheme}" />
+        </StackPanel>
+
+        <DataGrid
+            Grid.Row="1"
+            ItemsSource="{Binding Source}"
+            SelectedItem="{Binding SelectedItem}"
+            Style="{StaticResource DataGridStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Imie}" Header="Imię" />
+                <DataGridTextColumn Binding="{Binding Path=Nazwisko}" Header="Nazwisko" />
+                <DataGridTextColumn
+                    MaxWidth="130"
+                    Binding="{Binding Path=Pesel}"
+                    Header="Pesel" />
+                <DataGridTextColumn
+                    MaxWidth="130"
+                    Binding="{Binding Path=DataUrodzenia}"
+                    Header="Data Urodzenia" />
+                <DataGridTextColumn Header="Adres">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1} {2}, {3} {4}, {5}">
+                            <Binding Path="Adres.Ulica" />
+                            <Binding Path="Adres.NumerBudynku" />
+                            <Binding Path="Adres.NumerLokalu" />
+                            <Binding Path="Adres.KodPocztowy" />
+                            <Binding Path="Adres.Miejscowosc" />
+                            <Binding Path="Adres.Kraj" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    MaxWidth="120"
+                    Binding="{Binding Path=StawkaGodzinowaBrutto}"
+                    Header="Stawka Brutto" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -109,31 +109,31 @@
                                 Header="Zarządzaj">
                                 <StackPanel>
                                     <RadioButton
-                                        Command="{Binding NavigateToSearchKierowcyCommand}"
+                                        Command="{Binding NavigateToDriver}"
                                         Content="Kierowcy"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToRides}"
                                         Content="Przejazdy"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToCars}"
                                         Content="Samochody"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToAddresses}"
                                         Content="Adresy"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToFuelTypes}"
                                         Content="Rodzaje paliwa"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToCargoTypes}"
                                         Content="Typy towaru"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToConfiguration}"
                                         Content="Konfiguracja"
                                         Style="{StaticResource MenuButtonTheme}" />
                                 </StackPanel>

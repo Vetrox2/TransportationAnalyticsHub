@@ -15,7 +15,7 @@ using TransportationAnalyticsHub.MVVM.View;
 
 namespace TransportationAnalyticsHub.MVVM.ViewModel
 {
-    public class DriverViewModel : ShowTableViewModel<Kierowcy,AddDriverWindow,AddDriverWindowModel>
+    internal class DriverViewModel : ShowTableViewModel<Kierowcy,AddDriverWindow,AddDriverWindowModel>
     {
 
         private List<Adresy> addresses;

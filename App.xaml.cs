@@ -23,11 +23,48 @@ namespace TransportationAnalyticsHub
             });
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<HomeViewModel>();
+
+            services.AddSingleton<AddressesView>(provider => new AddressesView()
+            {
+                DataContext = provider.GetRequiredService<AddressesViewModel>(),
+            });
+            services.AddSingleton<AddressesViewModel>();
+
+            services.AddSingleton<CargoTypesView>(provider => new CargoTypesView()
+            {
+                DataContext = provider.GetRequiredService<CargoTypesViewModel>(),
+            });
+            services.AddSingleton<CargoTypesViewModel>();
+
+            services.AddSingleton<CarsView>(provider => new CarsView()
+            {
+                DataContext = provider.GetRequiredService<CarsViewModel>(),
+            });
+            services.AddSingleton<CarsViewModel>();
+
+            services.AddSingleton<ConfigurationView>(provider => new ConfigurationView()
+            {
+                DataContext = provider.GetRequiredService<ConfigurationViewModel>(),
+            });
+            services.AddSingleton<ConfigurationViewModel>();
+
             services.AddSingleton<DriverView>(provider => new DriverView()
             {
                 DataContext = provider.GetRequiredService<DriverViewModel>(),
             });
             services.AddSingleton<DriverViewModel>();
+
+            services.AddSingleton<FuelTypesView>(provider => new FuelTypesView()
+            {
+                DataContext = provider.GetRequiredService<FuelTypesViewModel>(),
+            });
+            services.AddSingleton<FuelTypesViewModel>();
+
+            services.AddSingleton<RidesView>(provider => new RidesView()
+            {
+                DataContext = provider.GetRequiredService<RidesViewModel>(),
+            });
+            services.AddSingleton<RidesViewModel>();
 
             services.AddSingleton<INavigationService, Navigation>();
 
