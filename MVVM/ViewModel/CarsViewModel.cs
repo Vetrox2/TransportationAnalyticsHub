@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
-using TransportationAnalyticsHub.MVVM.Window;
 using TransportationAnalyticsHub.MVVM.WindowModel;
+using TransportationAnalyticsHub.MVVM.Windows;
 
 namespace TransportationAnalyticsHub.MVVM.ViewModel
 {

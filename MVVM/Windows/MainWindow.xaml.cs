@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using TransportationAnalyticsHub.MVVM.ViewModel;
 
 namespace TransportationAnalyticsHub
 {

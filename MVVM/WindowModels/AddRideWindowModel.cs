@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
+using TransportationAnalyticsHub.MVVM.View;
+using TransportationAnalyticsHub.MVVM.ViewModel;
 
-namespace TransportationAnalyticsHub.MVVM.Window
+namespace TransportationAnalyticsHub.MVVM.WindowModel
 {
-    class AddFuelTypeWindowModel : AddInstanceWindowModelBase<RodzajePaliwa>
+    class AddRideWindowModel : AddInstanceWindowModelBase<Przejazdy>
     {
     }
 }

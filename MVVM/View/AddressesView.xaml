@@ -40,32 +40,21 @@
             SelectedItem="{Binding SelectedItem}"
             Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Imie}" Header="Imię" />
-                <DataGridTextColumn Binding="{Binding Path=Nazwisko}" Header="Nazwisko" />
-                <DataGridTextColumn
-                    MaxWidth="130"
-                    Binding="{Binding Path=Pesel}"
-                    Header="Pesel" />
-                <DataGridTextColumn
-                    MaxWidth="130"
-                    Binding="{Binding Path=DataUrodzenia}"
-                    Header="Data Urodzenia" />
-                <DataGridTextColumn Header="Adres">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0} {1} {2}, {3} {4}, {5}">
-                            <Binding Path="Adres.Ulica" />
-                            <Binding Path="Adres.NumerBudynku" />
-                            <Binding Path="Adres.NumerLokalu" />
-                            <Binding Path="Adres.KodPocztowy" />
-                            <Binding Path="Adres.Miejscowosc" />
-                            <Binding Path="Adres.Kraj" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=Kraj}" Header="Kraj" />
+                <DataGridTextColumn Binding="{Binding Path=Miejscowosc}" Header="Miejscowosc" />
                 <DataGridTextColumn
                     MaxWidth="120"
-                    Binding="{Binding Path=StawkaGodzinowaBrutto}"
-                    Header="Stawka Brutto" />
+                    Binding="{Binding Path=KodPocztowy}"
+                    Header="Kod Pocztowy" />
+                <DataGridTextColumn Binding="{Binding Path=Ulica}" Header="Ulica" />
+                <DataGridTextColumn
+                    MaxWidth="120"
+                    Binding="{Binding Path=NumerBudynku}"
+                    Header="Numer Budynku" />
+                <DataGridTextColumn
+                    MaxWidth="120"
+                    Binding="{Binding Path=NumerLokalu}"
+                    Header="Numer Lokalu" />
             </DataGrid.Columns>
 
         </DataGrid>

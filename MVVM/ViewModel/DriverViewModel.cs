@@ -12,6 +12,7 @@ using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 using TransportationAnalyticsHub.MVVM.View;
+using TransportationAnalyticsHub.MVVM.Windows;
 
 namespace TransportationAnalyticsHub.MVVM.ViewModel
 {
