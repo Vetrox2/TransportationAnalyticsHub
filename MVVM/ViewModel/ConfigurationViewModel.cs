@@ -9,5 +9,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
 {
     internal class ConfigurationViewModel : ViewModelBase
     {
+
     }
 }

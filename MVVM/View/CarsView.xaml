@@ -40,32 +40,12 @@
             SelectedItem="{Binding SelectedItem}"
             Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Imie}" Header="Imię" />
-                <DataGridTextColumn Binding="{Binding Path=Nazwisko}" Header="Nazwisko" />
-                <DataGridTextColumn
-                    MaxWidth="130"
-                    Binding="{Binding Path=Pesel}"
-                    Header="Pesel" />
-                <DataGridTextColumn
-                    MaxWidth="130"
-                    Binding="{Binding Path=DataUrodzenia}"
-                    Header="Data Urodzenia" />
-                <DataGridTextColumn Header="Adres">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0} {1} {2}, {3} {4}, {5}">
-                            <Binding Path="Adres.Ulica" />
-                            <Binding Path="Adres.NumerBudynku" />
-                            <Binding Path="Adres.NumerLokalu" />
-                            <Binding Path="Adres.KodPocztowy" />
-                            <Binding Path="Adres.Miejscowosc" />
-                            <Binding Path="Adres.Kraj" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn
-                    MaxWidth="120"
-                    Binding="{Binding Path=StawkaGodzinowaBrutto}"
-                    Header="Stawka Brutto" />
+                <DataGridTextColumn Binding="{Binding Path=Rejestracja}" Header="Rejestracja" />
+                <DataGridTextColumn Binding="{Binding Path=RokProdukcji}" Header="Rok Produkcji" />
+                <DataGridTextColumn Binding="{Binding Path=RodzajPaliwa}" Header="Paliwo" />
+                <DataGridTextColumn Binding="{Binding Path=TypTowaru}" Header="Typ Towaru" />
+                <DataGridTextColumn Binding="{Binding Path=MaksymalnaLadownoscT}" Header="Ladownosc (tona)" />
+                <DataGridTextColumn Binding="{Binding Path=MaksymalnaObjetoscZaladunkuM3}" Header="Objetosc (m3)" />
             </DataGrid.Columns>
 
         </DataGrid>

@@ -40,9 +40,55 @@
             SelectedItem="{Binding SelectedItem}"
             Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Imie}" Header="Imię" />
-                <DataGridTextColumn Binding="{Binding Path=Nazwisko}" Header="Nazwisko" />
-                <DataGridTextColumn
+                <DataGridTextColumn Header="Kierowca">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Kierowca.Imie" />
+                            <Binding Path="Kierowca.Nazwisko" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=SamochodCiezarowy.Rejestracja}" Header="Samochód" />
+                <DataGridTextColumn Binding="{Binding Path=TypTowaru}" Header="Typ Towaru" />
+                <DataGridTemplateColumn Header="Adresy">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="#d5d5d6"
+                                ItemsSource="{Binding Adres}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1} {2}, {3} {4}, {5}">
+                                                    <Binding Path="Ulica" />
+                                                    <Binding Path="NumerBudynku" />
+                                                    <Binding Path="NumerLokalu" />
+                                                    <Binding Path="KodPocztowy" />
+                                                    <Binding Path="Miejscowosc" />
+                                                    <Binding Path="Kraj" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Path=LacznaOdlegloscPrzejazduKm}" Header="Laczna Odleglosc" />
+                <DataGridTextColumn Binding="{Binding Path=ZuzytePaliwoL}" Header="Zuzyte Paliwo" />
+                <DataGridTextColumn Binding="{Binding Path=CenaPaliwaZlL}" Header="Cena Paliwa" />
+                <DataGridTextColumn Binding="{Binding Path=DodatkoweKoszty}" Header="Dodatkowe Koszty" />
+                <DataGridTextColumn Binding="{Binding Path=SrednieSpalanieNa100km}" Header="Srednie Spalanie" />
+                <DataGridTextColumn Binding="{Binding Path=DataRozpoczeciaPrzejazdu}" Header="Data Rozpoczecia" />
+                <DataGridTextColumn Binding="{Binding Path=DataZakonczeniaPrzejazdu}" Header="Data Zakonczenia" />
+                <DataGridTextColumn Binding="{Binding Path=StawkaGodzinowaBruttoKierowcy}" Header="Stawka Kierowcy" />
+                <DataGridTextColumn Binding="{Binding Path=WspolczynnikObjetosci}" Header="Wsp. Objetosci" />
+                <DataGridTextColumn Binding="{Binding Path=WspolczynnikLadownosci}" Header="Wsp. Ladownosci" />
+                <!--<DataGridTextColumn
                     MaxWidth="130"
                     Binding="{Binding Path=Pesel}"
                     Header="Pesel" />
@@ -61,11 +107,8 @@
                             <Binding Path="Adres.Kraj" />
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn
-                    MaxWidth="120"
-                    Binding="{Binding Path=StawkaGodzinowaBrutto}"
-                    Header="Stawka Brutto" />
+                </DataGridTextColumn>-->
+
             </DataGrid.Columns>
 
         </DataGrid>

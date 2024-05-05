@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,12 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
 {
     internal class CarsViewModel : ShowTableViewModel<SamochodyCiezarowe, AddCarWindow, AddCarWindowModel>
     {
+        public async override void UpdateSource()
+        {
+            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
+            {
+                Source = await context.SamochodyCiezarowes.ToListAsync();
+            }
+        }
     }
 }
