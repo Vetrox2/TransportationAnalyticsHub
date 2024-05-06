@@ -25,7 +25,7 @@ namespace TransportationAnalyticsHub.Core
 
         public RelayCommand SaveCommand => new RelayCommand(_ =>
         {
-            if (ValidateRequiredFields())
+            if (!ValidateRequiredFields())
             {
                 MessageBox.Show("The required data must not be empty!");
                 return;

@@ -128,7 +128,7 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             Salary = driver.StawkaGodzinowaBrutto.ToString();
         }
 
-        protected override bool ValidateRequiredFields() => Name.IsNullOrEmpty() || Surname.IsNullOrEmpty() || Salary.IsNullOrEmpty() || Birthday == null || Address.Id < 1;
+        protected override bool ValidateRequiredFields() => !(Name.IsNullOrEmpty() || Surname.IsNullOrEmpty() || Salary.IsNullOrEmpty() || Birthday == null || Address.Id < 1);
 
         protected override async void SaveChanges()
         {

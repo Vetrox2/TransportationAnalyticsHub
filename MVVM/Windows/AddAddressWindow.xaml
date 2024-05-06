@@ -5,9 +5,80 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TransportationAnalyticsHub.MVVM.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prefabs="clr-namespace:TransportationAnalyticsHub.Prefabs"
     Title="AddAddressWindow"
     Width="800"
-    Height="450"
+    Height="600"
+    AllowsTransparency="True"
+    Background="Transparent"
+    MouseLeftButtonDown="MoveWindow"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Grid />
+
+    <Border Background="#2B2E33" CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="15*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="2"
+                Margin="20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+
+                <Button
+                    Command="{Binding CloseCommand}"
+                    Content="Cancel"
+                    Style="{StaticResource CRUDButtonTheme}" />
+                <Button
+                    Command="{Binding SaveCommand}"
+                    Content="Save"
+                    Style="{StaticResource CRUDButtonTheme}" />
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="30,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <prefabs:TextInputField Caption="Ulica *" Input="{Binding Street, Mode=TwoWay}" />
+                <prefabs:TextInputField
+                    Grid.Row="1"
+                    Caption="Nr Domu *"
+                    Input="{Binding HouseNr, Mode=TwoWay}" />
+                <prefabs:TextInputField
+                    Grid.Row="2"
+                    Caption="Nr Lokalu"
+                    Input="{Binding Apartment, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <prefabs:TextInputField
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Caption="Kod pocztowy"
+                    Input="{Binding PostalCode, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <prefabs:TextInputField
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Caption="Miejscowosc *"
+                    Input="{Binding City, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <prefabs:TextInputField
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Caption="Kraj *"
+                    Input="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+            </Grid>
+        </Grid>
+    </Border>
 </Window>
