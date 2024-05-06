@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DatabaseCreationCode\**" />
+    <EmbeddedResource Remove="DatabaseCreationCode\**" />
+    <None Remove="DatabaseCreationCode\**" />
+    <Page Remove="DatabaseCreationCode\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\close.png" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\maximize.png" />
