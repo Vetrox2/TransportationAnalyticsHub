@@ -5,9 +5,82 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TransportationAnalyticsHub.MVVM.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prefabs="clr-namespace:TransportationAnalyticsHub.Prefabs"
     Title="AddCarWindow"
     Width="800"
-    Height="450"
+    Height="600"
+    AllowsTransparency="True"
+    Background="Transparent"
+    MouseLeftButtonDown="MoveWindow"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Grid />
+
+    <Border Background="#2B2E33" CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="15*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="2"
+                Margin="20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+
+                <Button
+                    Command="{Binding CloseCommand}"
+                    Content="Cancel"
+                    Style="{StaticResource CRUDButtonTheme}" />
+                <Button
+                    Command="{Binding SaveCommand}"
+                    Content="Save"
+                    Style="{StaticResource CRUDButtonTheme}" />
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="30,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <prefabs:TextInputField Caption="Rejestracja *" Input="{Binding Registration, Mode=TwoWay}" />
+                <prefabs:TextInputField
+                    Grid.Row="1"
+                    Caption="RokProdukcji *"
+                    Input="{Binding Year, Mode=TwoWay}" />
+                <prefabs:TextInputField
+                    Grid.Row="2"
+                    Caption="Maksymalna Objetosc Zaladunku (m3)"
+                    Input="{Binding MaxVolume, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <prefabs:TextInputField
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Caption="Maksymalna Ladownosc (tona) *"
+                    Input="{Binding MaxWeight, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <prefabs:ComboBoxField
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Caption="Rodzaj Paliwa *"
+                    Input="{Binding FuelType, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                    Source="{Binding FuelTypes}" />
+                <prefabs:ComboBoxField
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Caption="Typ Towaru"
+                    Input="{Binding CargoType, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                    Source="{Binding CargoTypes}" />
+
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

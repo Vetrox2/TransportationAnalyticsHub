@@ -13,7 +13,10 @@ using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.Core
 {
-    public class ShowTableViewModel<SourceT, WindowT, WindowVmT> : ViewModelBase where WindowT : Window, new() where WindowVmT : AddInstanceWindowModelBase<SourceT>, new() where SourceT : class
+    public class ShowTableViewModel<SourceT, WindowT, WindowVmT> : ViewModelBase 
+        where WindowT : Window, new() 
+        where WindowVmT : AddInstanceWindowModelBase<SourceT>, new() 
+        where SourceT : class
     {
         private List<SourceT> source;
         public List<SourceT> Source

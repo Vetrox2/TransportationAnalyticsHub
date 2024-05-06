@@ -96,7 +96,7 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             get => salary;
             set
             {
-                if (value == string.Empty || Regex.Match(value, MoneyValidationStr).Success)
+                if (value == string.Empty || Regex.Match(value, DecimalValidationStr).Success)
                     salary = value;
                 else
                     MessageBox.Show("Wrong syntax");
@@ -115,7 +115,7 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
 
         public override void FillFields(Kierowcy driver)
         {
-            DriverId = driver.KierowcaId;
+            SourceID = driver.KierowcaId;
             Name = driver.Imie;
             Surname = driver.Nazwisko;
             Pesel = driver.Pesel;
@@ -128,7 +128,7 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             Salary = driver.StawkaGodzinowaBrutto.ToString();
         }
 
-        protected override bool ValidateRequiredFields() => !(Name.IsNullOrEmpty() || Surname.IsNullOrEmpty() || Salary.IsNullOrEmpty() || Birthday == null || Address.Id < 1);
+        protected override bool ValidateRequiredFields() => !(Name.IsNullOrEmpty() || Surname.IsNullOrEmpty() || Salary.IsNullOrEmpty() || Birthday == null || Address == null || Address.Id < 1);
 
         protected override async void SaveChanges()
         {
@@ -141,7 +141,7 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
 
             using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
             {
-                var newDriver = UpdateMode ? await context.Kierowcies.FirstAsync(driver => driver.KierowcaId == DriverId) : new Kierowcy();
+                var newDriver = UpdateMode ? await context.Kierowcies.FirstAsync(driver => driver.KierowcaId == SourceID) : new Kierowcy();
                 newDriver.Imie = Name;
                 newDriver.Nazwisko = Surname;
                 newDriver.Pesel = Pesel.IsNullOrEmpty() ? null : Pesel;

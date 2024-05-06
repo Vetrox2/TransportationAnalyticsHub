@@ -17,9 +17,10 @@ namespace TransportationAnalyticsHub.Core
 
         protected const string NameValidationStr = @"^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]{0,20}$";
         protected const string IntValidationStr = @"^[0-9]{0,20}$";
-        protected const string MoneyValidationStr = @"^[0-9]+([,.][0-9]{0,4})?$";
+        protected const string LatinCharValidationStr = @"^[0-9A-Za-z]{0,20}$";
+        protected const string DecimalValidationStr = @"^[0-9]+([,.][0-9]{0,4})?$";
         protected readonly string[] DateFormats = ["MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy", "M/d/yyyy"];
-        protected int DriverId;
+        protected int SourceID;
 
         public RelayCommand CloseCommand => new RelayCommand(_ => Window.Close());
 
