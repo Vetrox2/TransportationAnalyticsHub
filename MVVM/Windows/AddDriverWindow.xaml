@@ -53,10 +53,10 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <prefabs:TextInputField Caption="Imię" Input="{Binding Name, Mode=TwoWay}" />
+                <prefabs:TextInputField Caption="Imię *" Input="{Binding Name, Mode=TwoWay}" />
                 <prefabs:TextInputField
                     Grid.Row="1"
-                    Caption="Nazwisko"
+                    Caption="Nazwisko *"
                     Input="{Binding Surname, Mode=TwoWay}" />
                 <prefabs:TextInputField
                     Grid.Row="3"
@@ -65,18 +65,18 @@
                 <prefabs:DateInputField
                     Grid.Row="0"
                     Grid.Column="2"
-                    Caption="Data urodzenia"
+                    Caption="Data urodzenia *"
                     Input="{Binding Birthday, Mode=TwoWay}" />
                 <prefabs:ComboBoxField
                     Grid.Row="1"
                     Grid.Column="2"
-                    Caption="Adres"
+                    Caption="Adres *"
                     Input="{Binding Address, Mode=TwoWay}"
                     Source="{Binding Addresses}" />
                 <prefabs:TextInputField
                     Grid.Row="3"
                     Grid.Column="2"
-                    Caption="Stawka godzinowa brutto"
+                    Caption="Stawka godzinowa brutto *"
                     Input="{Binding Salary, Mode=TwoWay}" />
             </Grid>
         </Grid>
