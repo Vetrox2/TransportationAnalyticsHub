@@ -64,8 +64,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             NavigateToRides = new(_ => { Navigation.NavigateTo<RidesViewModel>(); });
             NavigateToCars = new(_ => { Navigation.NavigateTo<CarsViewModel>(); });
             NavigateToAddresses = new(_ => { Navigation.NavigateTo<AddressesViewModel>(); });
-            NavigateToFuelTypes = new(_ => { Navigation.NavigateTo<FuelTypesViewModel>(); });
-            NavigateToCargoTypes = new(_ => { Navigation.NavigateTo<CargoTypesViewModel>(); });
             NavigateToConfiguration = new(_ => { Navigation.NavigateTo<ConfigurationViewModel>(); });
         }
     }

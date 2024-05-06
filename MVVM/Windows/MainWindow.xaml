@@ -125,14 +125,6 @@
                                         Content="Adresy"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToFuelTypes}"
-                                        Content="Rodzaje paliwa"
-                                        Style="{StaticResource MenuButtonTheme}" />
-                                    <RadioButton
-                                        Command="{Binding NavigateToCargoTypes}"
-                                        Content="Typy towaru"
-                                        Style="{StaticResource MenuButtonTheme}" />
-                                    <RadioButton
                                         Command="{Binding NavigateToConfiguration}"
                                         Content="Konfiguracja"
                                         Style="{StaticResource MenuButtonTheme}" />

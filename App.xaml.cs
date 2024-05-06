@@ -30,12 +30,6 @@ namespace TransportationAnalyticsHub
             });
             services.AddSingleton<AddressesViewModel>();
 
-            services.AddSingleton<CargoTypesView>(provider => new CargoTypesView()
-            {
-                DataContext = provider.GetRequiredService<CargoTypesViewModel>(),
-            });
-            services.AddSingleton<CargoTypesViewModel>();
-
             services.AddSingleton<CarsView>(provider => new CarsView()
             {
                 DataContext = provider.GetRequiredService<CarsViewModel>(),
@@ -53,12 +47,6 @@ namespace TransportationAnalyticsHub
                 DataContext = provider.GetRequiredService<DriverViewModel>(),
             });
             services.AddSingleton<DriverViewModel>();
-
-            services.AddSingleton<FuelTypesView>(provider => new FuelTypesView()
-            {
-                DataContext = provider.GetRequiredService<FuelTypesViewModel>(),
-            });
-            services.AddSingleton<FuelTypesViewModel>();
 
             services.AddSingleton<RidesView>(provider => new RidesView()
             {

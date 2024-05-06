@@ -5,69 +5,134 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TransportationAnalyticsHub.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prefabs="clr-namespace:TransportationAnalyticsHub.Prefabs"
     d:DesignHeight="680"
     d:DesignWidth="1030"
     mc:Ignorable="d">
 
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" MinHeight="80" />
+            <RowDefinition Height="10*" MinHeight="160" />
             <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <prefabs:TextInputField
+                Margin="10,0"
+                Caption="Wpisz wartość i wybierz opcję po prawej stronie:"
+                Input="{Binding Input, Mode=TwoWay}" />
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <StackPanel
+                    Margin="0,0,180,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="180"
+                        Command="{Binding AddFuel}"
+                        Content="Dodaj nowe paliwo"
+                        Style="{StaticResource CRUDButtonTheme}" />
+                    <Button
+                        Width="140"
+                        Command="{Binding DeleteFuel}"
+                        Content="Usuń paliwo"
+                        Style="{StaticResource CRUDButtonTheme}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,0,180,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="180"
+                        Command="{Binding AddCargo}"
+                        Content="Dodaj nowy towar"
+                        Style="{StaticResource CRUDButtonTheme}" />
+                    <Button
+                        Width="140"
+                        Command="{Binding DeleteCargo}"
+                        Content="Usuń towar"
+                        Style="{StaticResource CRUDButtonTheme}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.RowSpan="2"
+                    Margin="0,0,20,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                    <Button
+                        Width="140"
+                        Command="{Binding UpdateSalary}"
+                        Content="Zmień stawkę"
+                        Style="{StaticResource CRUDButtonTheme}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
 
 
-        <StackPanel
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Button
-                Command="{Binding Add}"
-                Content="Add"
-                Style="{StaticResource CRUDButtonTheme}" />
-            <Button
-                Command="{Binding Update}"
-                Content="Update"
-                Style="{StaticResource CRUDButtonTheme}" />
-            <Button
-                Command="{Binding Delete}"
-                Content="Delete"
-                Style="{StaticResource CRUDButtonTheme}" />
-        </StackPanel>
 
-        <DataGrid
-            Grid.Row="1"
-            ItemsSource="{Binding Source}"
-            SelectedItem="{Binding SelectedItem}"
-            Style="{StaticResource DataGridStyle}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Imie}" Header="Imię" />
-                <DataGridTextColumn Binding="{Binding Path=Nazwisko}" Header="Nazwisko" />
-                <DataGridTextColumn
-                    MaxWidth="130"
-                    Binding="{Binding Path=Pesel}"
-                    Header="Pesel" />
-                <DataGridTextColumn
-                    MaxWidth="130"
-                    Binding="{Binding Path=DataUrodzenia}"
-                    Header="Data Urodzenia" />
-                <DataGridTextColumn Header="Adres">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0} {1} {2}, {3} {4}, {5}">
-                            <Binding Path="Adres.Ulica" />
-                            <Binding Path="Adres.NumerBudynku" />
-                            <Binding Path="Adres.NumerLokalu" />
-                            <Binding Path="Adres.KodPocztowy" />
-                            <Binding Path="Adres.Miejscowosc" />
-                            <Binding Path="Adres.Kraj" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn
-                    MaxWidth="120"
-                    Binding="{Binding Path=StawkaGodzinowaBrutto}"
-                    Header="Stawka Brutto" />
-            </DataGrid.Columns>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="30*" />
+            </Grid.ColumnDefinitions>
 
-        </DataGrid>
+            <DataGrid
+                Grid.Column="0"
+                ItemsSource="{Binding FuelTypes, Mode=TwoWay}"
+                SelectedItem="{Binding SelectedFuel}"
+                Style="{StaticResource DataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=NazwaPaliwa}"
+                        Header="Rodzaje Paliwa" />
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+            <DataGrid
+                Grid.Column="2"
+                ItemsSource="{Binding CargoTypes, Mode=TwoWay}"
+                SelectedItem="{Binding SelectedCargo}"
+                Style="{StaticResource DataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=NazwaTypu}"
+                        Header="Typy Towaru" />
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+            <DataGrid
+                Grid.Column="4"
+                ItemsSource="{Binding Salary, Mode=TwoWay}"
+                Style="{StaticResource DataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=StawkaMinimalnaBrutto}"
+                        Header="Stawka Minimalna" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+
+
     </Grid>
 </UserControl>

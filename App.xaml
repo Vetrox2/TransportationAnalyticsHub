@@ -24,17 +24,11 @@
             <DataTemplate DataType="{x:Type TypeName=viewModel:AddressesViewModel}">
                 <view:AddressesView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type TypeName=viewModel:CargoTypesViewModel}">
-                <view:CargoTypesView />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type TypeName=viewModel:CarsViewModel}">
                 <view:CarsView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type TypeName=viewModel:ConfigurationViewModel}">
                 <view:ConfigurationView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type TypeName=viewModel:FuelTypesViewModel}">
-                <view:FuelTypesView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type TypeName=viewModel:RidesViewModel}">
                 <view:RidesView />
