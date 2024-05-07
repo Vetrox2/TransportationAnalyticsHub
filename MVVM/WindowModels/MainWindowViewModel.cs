@@ -19,6 +19,10 @@ namespace TransportationAnalyticsHub.MVVM.WindowModels
             NavigateToCars = new(_ => { Navigation.NavigateTo<CarsViewModel>(); });
             NavigateToAddresses = new(_ => { Navigation.NavigateTo<AddressesViewModel>(); });
             NavigateToConfiguration = new(_ => { Navigation.NavigateTo<ConfigurationViewModel>(); });
+            NavigateToRaportDriversWorkTime = new(_ => { Navigation.NavigateTo<RaportDriversWorkTimeViewModel>(); });
+            NavigateToRaportDriversPayoff = new(_ => { Navigation.NavigateTo<RaportDriversPayoffViewModel>(); });
+            NavigateToRaportCarsPayoff = new(_ => { Navigation.NavigateTo<RaportCarsPayoffViewModel>(); });
+            NavigateToRaportRidesCost = new(_ => { Navigation.NavigateTo<RaportRidesCostViewModel>(); });
         }
 
         public RelayCommand MinimizeWindow => new(_ => Window.WindowState = WindowState.Minimized);
@@ -37,6 +41,10 @@ namespace TransportationAnalyticsHub.MVVM.WindowModels
         public RelayCommand NavigateToFuelTypes { get; set; }
         public RelayCommand NavigateToCargoTypes { get; set; }
         public RelayCommand NavigateToConfiguration { get; set; }
+        public RelayCommand NavigateToRaportDriversWorkTime { get; set; }
+        public RelayCommand NavigateToRaportDriversPayoff { get; set; }
+        public RelayCommand NavigateToRaportCarsPayoff { get; set; }
+        public RelayCommand NavigateToRaportRidesCost { get; set; }
 
         public INavigationService Navigation
         {

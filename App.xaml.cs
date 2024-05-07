@@ -14,6 +14,7 @@ namespace TransportationAnalyticsHub
         {
             var services = new ServiceCollection();
 
+            //Views
             services.AddSingleton<MainWindow>(provider => new MainWindow()
             {
                 DataContext = provider.GetRequiredService<MainWindowViewModel>(),
@@ -52,6 +53,32 @@ namespace TransportationAnalyticsHub
             });
             services.AddSingleton<RidesViewModel>();
 
+            //Raports
+            services.AddSingleton<RaportDriversWorkTimeView>(provider => new RaportDriversWorkTimeView()
+            {
+                DataContext = provider.GetRequiredService<RaportDriversWorkTimeViewModel>(),
+            });
+            services.AddSingleton<RaportDriversWorkTimeViewModel>();
+
+            services.AddSingleton<RaportCarsPayoffView>(provider => new RaportCarsPayoffView()
+            {
+                DataContext = provider.GetRequiredService<RaportCarsPayoffViewModel>(),
+            });
+            services.AddSingleton<RaportCarsPayoffViewModel>();
+
+            services.AddSingleton<RaportDriversPayoffView>(provider => new RaportDriversPayoffView()
+            {
+                DataContext = provider.GetRequiredService<RaportDriversPayoffViewModel>(),
+            });
+            services.AddSingleton<RaportDriversPayoffViewModel>();
+
+            services.AddSingleton<RaportRidesCostView>(provider => new RaportRidesCostView()
+            {
+                DataContext = provider.GetRequiredService<RaportRidesCostViewModel>(),
+            });
+            services.AddSingleton<RaportRidesCostViewModel>();
+
+            //Navigation
             services.AddSingleton<INavigationService, Navigation>();
 
             services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider =>

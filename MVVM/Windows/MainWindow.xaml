@@ -78,8 +78,6 @@
                 </StackPanel>
             </Grid>
 
-
-
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250" />
@@ -136,19 +134,19 @@
                                 Header="Raporty">
                                 <StackPanel>
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToRaportDriversWorkTime}"
                                         Content="Czas Pracy Kierowcow"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToRaportDriversPayoff}"
                                         Content="Rozliczenie Kierowcow"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToRaportCarsPayoff}"
                                         Content="Praca Samochodow"
                                         Style="{StaticResource MenuButtonTheme}" />
                                     <RadioButton
-                                        Command="{Binding NavigateToHomeCommand}"
+                                        Command="{Binding NavigateToRaportRidesCost}"
                                         Content="Koszty Przejazdow"
                                         Style="{StaticResource MenuButtonTheme}" />
 
@@ -156,17 +154,7 @@
                             </Expander>
                         </StackPanel>
                     </ScrollViewer>
-                    <!--<TextBox Width="250"
-             Height="40"
-             VerticalContentAlignment="Center"
-             HorizontalAlignment="Left"
-             Margin="5"
-             Grid.Column="1"
-             Style="{StaticResource ModernTextBox}"/>-->
-
-
                 </Grid>
-
                 <ContentControl
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
