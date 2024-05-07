@@ -1,6 +1,4 @@
-﻿using RozliczeniePrzejazdowApp.Core;
-
-namespace TransportationAnalyticsHub.Core
+﻿namespace TransportationAnalyticsHub.Core
 {
 
     public class Navigation : ObservableObject, INavigationService

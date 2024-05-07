@@ -3,7 +3,7 @@ using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
-namespace TransportationAnalyticsHub.MVVM.WindowModel
+namespace TransportationAnalyticsHub.MVVM.WindowModels
 {
     class AddAddressWindowModel : AddInstanceWindowModelBase<Adresy>
     {

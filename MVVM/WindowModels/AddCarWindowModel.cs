@@ -4,7 +4,7 @@ using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
-namespace TransportationAnalyticsHub.MVVM.WindowModel
+namespace TransportationAnalyticsHub.MVVM.WindowModels
 {
     class AddCarWindowModel : AddInstanceWindowModelBase<SamochodyCiezarowe>
     {
@@ -141,7 +141,7 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
             newCar.MaksymalnaObjetoscZaladunkuM3 = MaxVolume.IsNullOrEmpty() ? null : DataConverter.ConvertToDouble(MaxVolume);
             newCar.MaksymalnaLadownoscT = DataConverter.ConvertToDouble(MaxWeight);
             newCar.RodzajPaliwa = FuelType.Text;
-            newCar.TypTowaru = (CargoType == null || CargoType.Text.IsNullOrEmpty()) ? null : CargoType.Text;
+            newCar.TypTowaru = CargoType == null || CargoType.Text.IsNullOrEmpty() ? null : CargoType.Text;
 
             if (!UpdateMode)
                 DBManager.AddNewItemToDB(newCar, CallingVm);

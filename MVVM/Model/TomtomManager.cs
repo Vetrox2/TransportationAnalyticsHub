@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http;
 
-namespace TransportationAnalyticsHub.Core
+namespace TransportationAnalyticsHub.MVVM.Model
 {
     public class TomtomManager
     {

@@ -1,10 +1,10 @@
-﻿using RozliczeniePrzejazdowApp.Core;
-using System.Windows;
+﻿using System.Windows;
 using TransportationAnalyticsHub.Core;
+using TransportationAnalyticsHub.MVVM.ViewModel;
 
-namespace TransportationAnalyticsHub.MVVM.ViewModel
+namespace TransportationAnalyticsHub.MVVM.WindowModels
 {
-    class MainWindowViewModel : Core.ViewModelBase
+    class MainWindowViewModel : ViewModelBase
     {
         public MainWindow Window;
 
@@ -24,8 +24,8 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
         public RelayCommand MinimizeWindow => new(_ => Window.WindowState = WindowState.Minimized);
         public RelayCommand MaximizeWindow => new(_ =>
         {
-            Window.WindowState = (Window.WindowState != WindowState.Maximized) ? WindowState.Maximized : WindowState.Normal;
-            Window.BorderThickness = (Window.WindowState != WindowState.Maximized) ? new Thickness(0) : new Thickness(8);
+            Window.WindowState = Window.WindowState != WindowState.Maximized ? WindowState.Maximized : WindowState.Normal;
+            Window.BorderThickness = Window.WindowState != WindowState.Maximized ? new Thickness(0) : new Thickness(8);
         });
         public RelayCommand CloseWindow => new(_ => Window.Close());
 

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace RozliczeniePrzejazdowApp.Core
+namespace TransportationAnalyticsHub.Core
 {
     public class RelayCommand : ICommand
     {

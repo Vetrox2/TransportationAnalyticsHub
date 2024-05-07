@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
-using TransportationAnalyticsHub.MVVM.WindowModel;
+using TransportationAnalyticsHub.MVVM.WindowModels;
 using TransportationAnalyticsHub.MVVM.Windows;
 
 namespace TransportationAnalyticsHub.MVVM.ViewModel

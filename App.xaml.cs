@@ -3,6 +3,7 @@ using System.Windows;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.View;
 using TransportationAnalyticsHub.MVVM.ViewModel;
+using TransportationAnalyticsHub.MVVM.WindowModels;
 
 namespace TransportationAnalyticsHub
 {

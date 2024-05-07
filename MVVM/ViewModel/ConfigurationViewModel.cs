@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using RozliczeniePrzejazdowApp.Core;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;

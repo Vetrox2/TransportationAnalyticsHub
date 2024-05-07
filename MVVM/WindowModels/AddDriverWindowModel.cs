@@ -4,7 +4,7 @@ using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
-namespace TransportationAnalyticsHub.MVVM.ViewModel
+namespace TransportationAnalyticsHub.MVVM.WindowModels
 {
     public class AddDriverWindowModel : AddInstanceWindowModelBase<Kierowcy>
     {

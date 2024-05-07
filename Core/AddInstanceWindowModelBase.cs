@@ -1,5 +1,4 @@
-﻿using RozliczeniePrzejazdowApp.Core;
-using System.Windows;
+﻿using System.Windows;
 
 namespace TransportationAnalyticsHub.Core
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace RozliczeniePrzejazdowApp.Core
+namespace TransportationAnalyticsHub.Core
 {
     public class ObservableObject : INotifyPropertyChanged
     {

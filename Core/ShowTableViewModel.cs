@@ -1,5 +1,4 @@
-﻿using RozliczeniePrzejazdowApp.Core;
-using System.Windows;
+﻿using System.Windows;
 using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
