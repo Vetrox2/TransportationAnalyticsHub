@@ -9,6 +9,9 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
     internal class RidesViewModel : ShowTableViewModel<Przejazdy, AddRideWindow, AddRideWindowModel>
     {
         private List<Kierowcy> drivers;
+        private List<SamochodyCiezarowe> cars;
+        private List<Adresy> addresses;
+
         public List<Kierowcy> Drivers
         {
             get => drivers;
@@ -19,7 +22,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private List<SamochodyCiezarowe> cars;
         public List<SamochodyCiezarowe> Cars
         {
             get => cars;
@@ -30,7 +32,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private List<Adresy> addresses;
         public List<Adresy> Addresses
         {
             get => addresses;

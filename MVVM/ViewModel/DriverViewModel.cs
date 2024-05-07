@@ -7,8 +7,8 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
 {
     internal class DriverViewModel : ShowTableViewModel<Kierowcy, AddDriverWindow, AddDriverWindowModel>
     {
-
         private List<Adresy> addresses;
+
         public List<Adresy> Addresses
         {
             get => addresses;
@@ -27,7 +27,5 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
                 Source = await context.Kierowcies.ToListAsync();
             }
         }
-
     }
-
 }

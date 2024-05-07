@@ -7,6 +7,12 @@ namespace TransportationAnalyticsHub.Core
     {
         private readonly Func<Type, ViewModelBase> viewModelFactory;
         private ViewModelBase currentView;
+
+        public Navigation(Func<Type, ViewModelBase> viewModelFactory)
+        {
+            this.viewModelFactory = viewModelFactory;
+        }
+
         public ViewModelBase CurrentView
         {
             get => currentView;
@@ -15,11 +21,6 @@ namespace TransportationAnalyticsHub.Core
                 currentView = value;
                 OnPropertyChanged();
             }
-        }
-
-        public Navigation(Func<Type, ViewModelBase> viewModelFactory)
-        {
-            this.viewModelFactory = viewModelFactory;
         }
 
         public void NavigateTo<TViewModel>() where TViewModel : ViewModelBase

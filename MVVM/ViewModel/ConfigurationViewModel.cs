@@ -1,59 +1,58 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RozliczeniePrzejazdowApp.Core;
-using System.Text.RegularExpressions;
 using TransportationAnalyticsHub.Core;
+using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.MVVM.ViewModel
 {
     internal class ConfigurationViewModel : ViewModelBase
     {
-        protected const string DecimalValidationStr = @"^[0-9]+([,.][0-9]{0,4})?$";
+        private string input;
+        private object selectedFuel;
+        private object selectedCargo;
+        private List<Konfiguracja> salary;
+        private List<RodzajePaliwa> fuelTypes;
+        private List<TypyTowaru> cargoTypes;
 
         public RelayCommand AddFuel => new RelayCommand(_ =>
         {
             if (Input.IsNullOrEmpty()) return;
 
-            AddNewItemToDB(new RodzajePaliwa() { NazwaPaliwa = Input });
+            DBManager.AddNewItemToDB(new RodzajePaliwa() { NazwaPaliwa = Input }, this);
         });
 
         public RelayCommand AddCargo => new RelayCommand(_ =>
         {
             if (Input.IsNullOrEmpty()) return;
 
-            AddNewItemToDB(new TypyTowaru() { NazwaTypu = Input });
+            DBManager.AddNewItemToDB(new TypyTowaru() { NazwaTypu = Input }, this);
         });
 
         public RelayCommand DeleteFuel => new RelayCommand(_ =>
         {
             if (SelectedFuel == null) return;
 
-            DeleteItemFromDB((RodzajePaliwa)SelectedFuel);
+            DBManager.DeleteItemFromDB((RodzajePaliwa)SelectedFuel, this);
         });
 
         public RelayCommand DeleteCargo => new RelayCommand(_ =>
         {
             if (SelectedCargo == null) return;
 
-            DeleteItemFromDB((TypyTowaru)SelectedCargo);
+            DBManager.DeleteItemFromDB((TypyTowaru)SelectedCargo, this);
         });
 
         public RelayCommand UpdateSalary => new RelayCommand(_ =>
         {
-            if (Input.IsNullOrEmpty() || !Regex.Match(Input, DecimalValidationStr).Success)
+            if (Input.IsNullOrEmpty() || !DataValidator.ValidateDecimal(Input))
                 return;
 
-            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
-            {
-                Salary[0].StawkaMinimalnaBrutto = decimal.Parse(Input.Replace('.', ','));
-                context.Update<Konfiguracja>(Salary[0]);
-                context.SaveChanges();
-            }
-            UpdateSource();
+            Salary[0].StawkaMinimalnaBrutto = DataConverter.ConvertToDecimal(Input);
+            DBManager.UpdateItemInDB(Salary[0], this);
         });
 
-        private string input;
         public string Input
         {
             get => input;
@@ -64,7 +63,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private object selectedFuel;
         public object SelectedFuel
         {
             get => selectedFuel;
@@ -75,7 +73,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private object selectedCargo;
         public object SelectedCargo
         {
             get => selectedCargo;
@@ -86,7 +83,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private List<Konfiguracja> salary;
         public List<Konfiguracja> Salary
         {
             get => salary;
@@ -97,7 +93,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private List<RodzajePaliwa> fuelTypes;
         public List<RodzajePaliwa> FuelTypes
         {
             get => fuelTypes;
@@ -109,7 +104,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private List<TypyTowaru> cargoTypes;
         public List<TypyTowaru> CargoTypes
         {
             get => cargoTypes;
@@ -129,30 +123,6 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
                 FuelTypes = await context.RodzajePaliwas.ToListAsync();
                 Salary = await context.Konfiguracjas.ToListAsync();
             }
-        }
-
-        private void AddNewItemToDB<T>(T newObject) where T : class
-        {
-            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
-            {
-                context.Add(newObject);
-                context.SaveChanges();
-            }
-            UpdateSource();
-        }
-
-        private void DeleteItemFromDB<T>(T item) where T : class
-        {
-            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
-            {
-                context.Remove(item);
-                try
-                {
-                    context.SaveChanges();
-                }
-                catch (Exception e) { }
-            }
-            UpdateSource();
         }
     }
 }

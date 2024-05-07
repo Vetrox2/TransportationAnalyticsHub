@@ -4,8 +4,8 @@ namespace TransportationAnalyticsHub.Core
 {
     public class ComboBoxItemRep
     {
-        public int Id { get; set; }
-        public string Text { get; set; }
+        public int Id;
+        public string Text;
 
         public ComboBoxItemRep(int id, string text)
         {

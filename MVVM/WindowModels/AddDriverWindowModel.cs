@@ -1,11 +1,7 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Globalization;
-using System.Text.RegularExpressions;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.Windows;
 using TransportationAnalyticsHub.Core;
+using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.MVVM.ViewModel
@@ -13,6 +9,23 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
     public class AddDriverWindowModel : AddInstanceWindowModelBase<Kierowcy>
     {
         private List<ComboBoxItemRep> addresses;
+        private string name;
+        private string surname;
+        private string pesel;
+        private string birthday;
+        private ComboBoxItemRep address;
+        private string salary;
+
+        public AddDriverWindowModel()
+        {
+            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
+            {
+                Addresses = new();
+                context.Adresies.ToList().ForEach(address => Addresses.Add(new ComboBoxItemRep(address)));
+                birthday = "1/1/2000 12:00:00 AM";
+            }
+        }
+
         public List<ComboBoxItemRep> Addresses
         {
             get => addresses;
@@ -23,60 +36,62 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private string name;
         public string Name
         {
             get => name;
             set
             {
-                if (Regex.Match(value, NameValidationStr).Success)
+                if (DataValidator.ValidateName(value))
                     name = value;
                 else
-                    MessageBox.Show("Wrong Name");
+                    MessageBox.Show("Wrong name syntax");
+
                 OnPropertyChanged();
             }
         }
 
-        private string surname;
         public string Surname
         {
             get => surname;
             set
             {
-                if (Regex.Match(value, NameValidationStr).Success)
+                if (DataValidator.ValidateName(value))
                     surname = value;
                 else
-                    MessageBox.Show("Wrong Surname");
+                    MessageBox.Show("Wrong surname syntax");
+
                 OnPropertyChanged();
             }
         }
 
-        private string pesel;
         public string Pesel
         {
             get => pesel;
             set
             {
-                if (value == null || Regex.Match(value, IntValidationStr).Success && value.Length == 11)
+                if (value.IsNullOrEmpty() || DataValidator.ValidatePesel(value))
                     pesel = value;
                 else
                     MessageBox.Show("Wrong pesel syntax");
+
                 OnPropertyChanged();
             }
         }
 
-        private string birthday;
         public string Birthday
         {
             get => birthday;
             set
             {
-                birthday = value;
+                if (value.IsNullOrEmpty() || DataValidator.ValidateAge18(value))
+                    birthday = value;
+                else
+                    MessageBox.Show("Driver must have at least 18 years old");
+
                 OnPropertyChanged();
             }
         }
 
-        private ComboBoxItemRep address;
         public ComboBoxItemRep Address
         {
             get => address;
@@ -87,73 +102,48 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             }
         }
 
-        private string salary;
         public string Salary
         {
             get => salary;
             set
             {
-                if (value == string.Empty || Regex.Match(value, DecimalValidationStr).Success)
+                if (value.IsNullOrEmpty() || DataValidator.ValidateDecimal(value))
                     salary = value;
                 else
-                    MessageBox.Show("Wrong syntax");
-                OnPropertyChanged();
-            }
-        }
+                    MessageBox.Show("Wrong salary syntax");
 
-        public AddDriverWindowModel()
-        {
-            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
-            {
-                Addresses = new();
-                context.Adresies.ToList().ForEach(address => Addresses.Add(new ComboBoxItemRep(address)));
+                OnPropertyChanged();
             }
         }
 
         public override void FillFields(Kierowcy driver)
         {
-            SourceID = driver.KierowcaId;
+            UpdatingObject = driver;
             Name = driver.Imie;
             Surname = driver.Nazwisko;
             Pesel = driver.Pesel;
             Address = Addresses.Find(address => address.Id == driver.AdresId);
-
-            var data = DateTime.ParseExact(driver.DataUrodzenia.ToString(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
-            string formatedDate = data.ToString("M/d/yyyy").Replace('.', '/');
-            Birthday = formatedDate += " 12:00:00 AM";
-
+            Birthday = DataConverter.ConvertDateOnlyToString(driver.DataUrodzenia);
             Salary = driver.StawkaGodzinowaBrutto.ToString();
         }
 
-        protected override bool ValidateRequiredFields() => !(Name.IsNullOrEmpty() || Surname.IsNullOrEmpty() || Salary.IsNullOrEmpty() || Birthday == null || Address == null || Address.Id < 1);
+        protected override bool ValidateRequiredFields() => !(Name.IsNullOrEmpty() || Surname.IsNullOrEmpty() || Salary.IsNullOrEmpty()
+            || Birthday == null || Address == null || Address.Id < 1);
 
         protected override async void SaveChanges()
         {
-            DateTime birthdayDT;
-            if (!DateTime.TryParseExact(Birthday.Substring(0, Birthday.IndexOf(' ')), DateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out birthdayDT))
-            {
-                MessageBox.Show("Wrong date format");
-                return;
-            }
+            var newDriver = UpdateMode ? UpdatingObject : new Kierowcy();
+            newDriver.Imie = Name;
+            newDriver.Nazwisko = Surname;
+            newDriver.Pesel = Pesel.IsNullOrEmpty() ? null : Pesel;
+            newDriver.StawkaGodzinowaBrutto = DataConverter.ConvertToDecimal(Salary);
+            newDriver.DataUrodzenia = DataConverter.ConvertToDateOnly(Birthday);
+            newDriver.AdresId = Address.Id;
 
-            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
-            {
-                var newDriver = UpdateMode ? await context.Kierowcies.FirstAsync(driver => driver.KierowcaId == SourceID) : new Kierowcy();
-                newDriver.Imie = Name;
-                newDriver.Nazwisko = Surname;
-                newDriver.Pesel = Pesel.IsNullOrEmpty() ? null : Pesel;
-                newDriver.StawkaGodzinowaBrutto = decimal.Parse(Salary.Replace('.', ','));
-                newDriver.DataUrodzenia = DateOnly.FromDateTime(birthdayDT);
-                newDriver.AdresId = Address.Id;
-
-                if (UpdateMode)
-                    context.Update<Kierowcy>(newDriver);
-                else
-                    context.Add<Kierowcy>(newDriver);
-
-                context.SaveChanges();
-                CallingVm.UpdateSource();
-            }
+            if (!UpdateMode)
+                DBManager.AddNewItemToDB(newDriver, CallingVm);
+            else
+                DBManager.UpdateItemInDB(newDriver, CallingVm);
         }
     }
 }

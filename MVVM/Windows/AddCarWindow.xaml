@@ -61,23 +61,23 @@
                 <prefabs:TextInputField
                     Grid.Row="2"
                     Caption="Maksymalna Objetosc Zaladunku (m3)"
-                    Input="{Binding MaxVolume, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                    Input="{Binding MaxVolume, Mode=TwoWay}" />
                 <prefabs:TextInputField
                     Grid.Row="0"
                     Grid.Column="2"
                     Caption="Maksymalna Ladownosc (tona) *"
-                    Input="{Binding MaxWeight, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                    Input="{Binding MaxWeight, Mode=TwoWay}" />
                 <prefabs:ComboBoxField
                     Grid.Row="1"
                     Grid.Column="2"
                     Caption="Rodzaj Paliwa *"
-                    Input="{Binding FuelType, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                    Input="{Binding FuelType, Mode=TwoWay}"
                     Source="{Binding FuelTypes}" />
                 <prefabs:ComboBoxField
                     Grid.Row="2"
                     Grid.Column="2"
                     Caption="Typ Towaru"
-                    Input="{Binding CargoType, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                    Input="{Binding CargoType, Mode=TwoWay}"
                     Source="{Binding CargoTypes}" />
 
             </Grid>

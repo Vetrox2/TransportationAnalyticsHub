@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text.RegularExpressions;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.Windows;
 using TransportationAnalyticsHub.Core;
+using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.MVVM.WindowModel
@@ -10,101 +9,13 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
     class AddCarWindowModel : AddInstanceWindowModelBase<SamochodyCiezarowe>
     {
         private string registration;
-        public string Registration
-        {
-            get => registration;
-            set
-            {
-                if (value == null || Regex.Match(value, LatinCharValidationStr).Success && value.Length <= 8)
-                    registration = value;
-                else
-                    MessageBox.Show("Wrong registration syntax");
-                OnPropertyChanged();
-            }
-        }
-
         private short year;
-        public short Year
-        {
-            get => year;
-            set
-            {
-                year = value;
-                OnPropertyChanged();
-            }
-        }
-
         private string maxVolume;
-        public string MaxVolume
-        {
-            get => maxVolume;
-            set
-            {
-                if (value == string.Empty || Regex.Match(value, DecimalValidationStr).Success)
-                    maxVolume = value;
-                else
-                    MessageBox.Show("Wrong syntax");
-                OnPropertyChanged();
-            }
-        }
-
         private string maxWeight;
-        public string MaxWeight
-        {
-            get => maxWeight;
-            set
-            {
-                if (value == string.Empty || Regex.Match(value, DecimalValidationStr).Success)
-                    maxWeight = value;
-                else
-                    MessageBox.Show("Wrong syntax");
-                OnPropertyChanged();
-            }
-        }
-
         private ComboBoxItemRep fuelType;
-        public ComboBoxItemRep FuelType
-        {
-            get => fuelType;
-            set
-            {
-                fuelType = value;
-                OnPropertyChanged();
-            }
-        }
-
         private ComboBoxItemRep cargoType;
-        public ComboBoxItemRep CargoType
-        {
-            get => cargoType;
-            set
-            {
-                cargoType = value;
-                OnPropertyChanged();
-            }
-        }
-
         private List<ComboBoxItemRep> fuelTypes;
-        public List<ComboBoxItemRep> FuelTypes
-        {
-            get => fuelTypes;
-            set
-            {
-                fuelTypes = value;
-                OnPropertyChanged();
-            }
-        }
-
         private List<ComboBoxItemRep> cargoTypes;
-        public List<ComboBoxItemRep> CargoTypes
-        {
-            get => cargoTypes;
-            set
-            {
-                cargoTypes = value;
-                OnPropertyChanged();
-            }
-        }
 
         public AddCarWindowModel()
         {
@@ -117,9 +28,101 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
             }
         }
 
+        public string Registration
+        {
+            get => registration;
+            set
+            {
+                if (value == null || DataValidator.ValidateRegistration(value))
+                    registration = value;
+                else
+                    MessageBox.Show("Wrong registration syntax or is too long");
+
+                OnPropertyChanged();
+            }
+        }
+
+        public short Year
+        {
+            get => year;
+            set
+            {
+                year = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string MaxVolume
+        {
+            get => maxVolume;
+            set
+            {
+                if (value.IsNullOrEmpty() || DataValidator.ValidateDecimal(value))
+                    maxVolume = value;
+                else
+                    MessageBox.Show("Wrong syntax");
+
+                OnPropertyChanged();
+            }
+        }
+
+        public string MaxWeight
+        {
+            get => maxWeight;
+            set
+            {
+                if (value.IsNullOrEmpty() || DataValidator.ValidateDecimal(value))
+                    maxWeight = value;
+                else
+                    MessageBox.Show("Wrong syntax");
+
+                OnPropertyChanged();
+            }
+        }
+
+        public ComboBoxItemRep FuelType
+        {
+            get => fuelType;
+            set
+            {
+                fuelType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ComboBoxItemRep CargoType
+        {
+            get => cargoType;
+            set
+            {
+                cargoType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<ComboBoxItemRep> FuelTypes
+        {
+            get => fuelTypes;
+            set
+            {
+                fuelTypes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<ComboBoxItemRep> CargoTypes
+        {
+            get => cargoTypes;
+            set
+            {
+                cargoTypes = value;
+                OnPropertyChanged();
+            }
+        }
+
         public override void FillFields(SamochodyCiezarowe car)
         {
-            SourceID = car.SamochodCiezarowyId;
+            UpdatingObject = car;
             Registration = car.Rejestracja;
             Year = car.RokProdukcji;
             MaxVolume = car.MaksymalnaObjetoscZaladunkuM3.ToString();
@@ -132,24 +135,18 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
 
         protected override async void SaveChanges()
         {
-            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
-            {
-                var newCar = UpdateMode ? await context.SamochodyCiezarowes.FirstAsync(car => car.SamochodCiezarowyId == SourceID) : new SamochodyCiezarowe();
-                newCar.Rejestracja = Registration.ToUpper();
-                newCar.RokProdukcji = Year;
-                newCar.MaksymalnaObjetoscZaladunkuM3 = MaxVolume.IsNullOrEmpty() ? null : double.Parse(MaxVolume.Replace('.', ','));
-                newCar.MaksymalnaLadownoscT = double.Parse(MaxWeight.Replace('.', ','));
-                newCar.RodzajPaliwa = FuelType.Text;
-                newCar.TypTowaru = (CargoType == null || CargoType.Text.IsNullOrEmpty()) ? null : CargoType.Text;
+            var newCar = UpdateMode ? UpdatingObject : new SamochodyCiezarowe();
+            newCar.Rejestracja = Registration.ToUpper();
+            newCar.RokProdukcji = Year;
+            newCar.MaksymalnaObjetoscZaladunkuM3 = MaxVolume.IsNullOrEmpty() ? null : DataConverter.ConvertToDouble(MaxVolume);
+            newCar.MaksymalnaLadownoscT = DataConverter.ConvertToDouble(MaxWeight);
+            newCar.RodzajPaliwa = FuelType.Text;
+            newCar.TypTowaru = (CargoType == null || CargoType.Text.IsNullOrEmpty()) ? null : CargoType.Text;
 
-                if (UpdateMode)
-                    context.Update<SamochodyCiezarowe>(newCar);
-                else
-                    context.Add<SamochodyCiezarowe>(newCar);
-
-                context.SaveChanges();
-                CallingVm.UpdateSource();
-            }
+            if (!UpdateMode)
+                DBManager.AddNewItemToDB(newCar, CallingVm);
+            else
+                DBManager.UpdateItemInDB(newCar, CallingVm);
         }
     }
 }

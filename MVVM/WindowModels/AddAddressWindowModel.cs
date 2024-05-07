@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using TransportationAnalyticsHub.Core;
+using TransportationAnalyticsHub.MVVM.Model;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.MVVM.WindowModel
@@ -7,6 +8,13 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
     class AddAddressWindowModel : AddInstanceWindowModelBase<Adresy>
     {
         private string street;
+        private string houseNr;
+        private string apartment;
+        private string postalCode;
+        private string city;
+        private string country;
+
+
         public string Street
         {
             get => street;
@@ -17,7 +25,6 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
             }
         }
 
-        private string houseNr;
         public string HouseNr
         {
             get => houseNr;
@@ -28,7 +35,6 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
             }
         }
 
-        private string apartment;
         public string Apartment
         {
             get => apartment;
@@ -39,7 +45,6 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
             }
         }
 
-        private string postalCode;
         public string PostalCode
         {
             get => postalCode;
@@ -50,7 +55,6 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
             }
         }
 
-        private string city;
         public string City
         {
             get => city;
@@ -61,7 +65,6 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
             }
         }
 
-        private string country;
         public string Country
         {
             get => country;
@@ -86,22 +89,17 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
 
         protected override async void SaveChanges()
         {
-            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
+            var newAddress = new Adresy()
             {
-                var newAddress = new Adresy()
-                {
-                    Kraj = Country,
-                    Miejscowosc = City,
-                    KodPocztowy = PostalCode,
-                    Ulica = Street,
-                    NumerBudynku = HouseNr,
-                    NumerLokalu = Apartment
-                };
+                Kraj = Country,
+                Miejscowosc = City,
+                KodPocztowy = PostalCode,
+                Ulica = Street,
+                NumerBudynku = HouseNr,
+                NumerLokalu = Apartment
+            };
 
-                context.Add<Adresy>(newAddress);
-                context.SaveChanges();
-                CallingVm.UpdateSource();
-            }
+            DBManager.AddNewItemToDB(newAddress, CallingVm);
         }
     }
 }
