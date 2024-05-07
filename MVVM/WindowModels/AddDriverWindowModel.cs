@@ -2,14 +2,11 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.SqlServer.Server;
-using RozliczeniePrzejazdowApp.Core;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
-using TransportationAnalyticsHub.Prefabs;
 
 namespace TransportationAnalyticsHub.MVVM.ViewModel
 {

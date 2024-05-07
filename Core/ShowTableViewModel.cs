@@ -1,21 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using RozliczeniePrzejazdowApp.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RozliczeniePrzejazdowApp.Core;
 using System.Windows;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.Core
 {
-    public class ShowTableViewModel<SourceT, WindowT, WindowVmT> : ViewModelBase 
-        where WindowT : Window, new() 
-        where WindowVmT : AddInstanceWindowModelBase<SourceT>, new() 
+    public class ShowTableViewModel<SourceT, WindowT, WindowVmT> : ViewModelBase
+        where WindowT : Window, new()
+        where WindowVmT : AddInstanceWindowModelBase<SourceT>, new()
         where SourceT : class
     {
         private List<SourceT> source;

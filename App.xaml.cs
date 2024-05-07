@@ -1,12 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
-using System.Data;
 using System.Windows;
 using TransportationAnalyticsHub.Core;
-using TransportationAnalyticsHub.MVVM.Model;
-using TransportationAnalyticsHub.MVVM.ViewModel;
 using TransportationAnalyticsHub.MVVM.View;
-using TransportationAnalyticsHub.MVVM.Model.DBModels;
+using TransportationAnalyticsHub.MVVM.ViewModel;
 
 namespace TransportationAnalyticsHub
 {
@@ -22,6 +18,7 @@ namespace TransportationAnalyticsHub
                 DataContext = provider.GetRequiredService<MainWindowViewModel>(),
             });
             services.AddSingleton<MainWindowViewModel>();
+
             services.AddSingleton<HomeViewModel>();
 
             services.AddSingleton<AddressesView>(provider => new AddressesView()
@@ -56,7 +53,7 @@ namespace TransportationAnalyticsHub
 
             services.AddSingleton<INavigationService, Navigation>();
 
-            services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider => 
+            services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider =>
             viewModelType => (ViewModelBase)serviceProvider.GetRequiredService(viewModelType));
 
             serviceProvider = services.BuildServiceProvider();

@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.IdentityModel.Tokens;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
@@ -14,7 +7,7 @@ namespace TransportationAnalyticsHub.MVVM.WindowModel
     class AddAddressWindowModel : AddInstanceWindowModelBase<Adresy>
     {
         private string street;
-        public string Street 
+        public string Street
         {
             get => street;
             set

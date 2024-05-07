@@ -1,16 +1,7 @@
-﻿using Azure.Core.GeoJson;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RozliczeniePrzejazdowApp.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Printing;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
@@ -47,15 +38,15 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
 
             DeleteItemFromDB((TypyTowaru)SelectedCargo);
         });
-        
+
         public RelayCommand UpdateSalary => new RelayCommand(_ =>
         {
-            if (Input.IsNullOrEmpty() || !Regex.Match(Input, DecimalValidationStr).Success) 
+            if (Input.IsNullOrEmpty() || !Regex.Match(Input, DecimalValidationStr).Success)
                 return;
 
             using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
             {
-                    Salary[0].StawkaMinimalnaBrutto = decimal.Parse(Input.Replace('.',','));
+                Salary[0].StawkaMinimalnaBrutto = decimal.Parse(Input.Replace('.', ','));
                 context.Update<Konfiguracja>(Salary[0]);
                 context.SaveChanges();
             }
@@ -155,7 +146,7 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
             {
                 context.Remove(item);
-                try 
+                try
                 {
                     context.SaveChanges();
                 }

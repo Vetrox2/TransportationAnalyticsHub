@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
+﻿namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 public partial class Przejazdy
 {
