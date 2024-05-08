@@ -4,13 +4,13 @@ using TransportationAnalyticsHub.MVVM.ViewModel;
 
 namespace TransportationAnalyticsHub.MVVM.WindowModels
 {
-    class MainWindowViewModel : ViewModelBase
+    class MainWindowModel : ViewModelBase
     {
         public MainWindow Window;
 
         private INavigationService navigation;
 
-        public MainWindowViewModel(INavigationService navigation)
+        public MainWindowModel(INavigationService navigation)
         {
             Navigation = navigation;
             NavigateToHome = new(_ => { Navigation.NavigateTo<HomeViewModel>(); });

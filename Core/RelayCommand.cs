@@ -28,5 +28,11 @@ namespace TransportationAnalyticsHub.Core
         {
             execute(parameter);
         }
+
+        public void SwapCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            this.execute = execute;
+            this.canExecute = canExecute;
+        }
     }
 }

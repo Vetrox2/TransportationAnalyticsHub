@@ -5,9 +5,45 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TransportationAnalyticsHub.MVVM.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prefabs="clr-namespace:TransportationAnalyticsHub.Prefabs"
     Title="AddRideWindow"
-    Width="800"
-    Height="450"
+    Width="1200"
+    Height="600"
+    AllowsTransparency="True"
+    Background="Transparent"
+    MouseLeftButtonDown="MoveWindow"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Grid />
+
+    <Border Background="#2B2E33" CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="75*" />
+                <RowDefinition Height="15*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="2"
+                Margin="20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+
+                <Button
+                    Command="{Binding CloseCommand}"
+                    Content="{Binding CloseButtonText}"
+                    Style="{StaticResource CRUDButtonTheme}" />
+                <Button
+                    Command="{Binding SaveCommand}"
+                    Content="{Binding SaveButtonText}"
+                    Style="{StaticResource CRUDButtonTheme}" />
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="30,0">
+                <ContentControl Content="{Binding CurrentView}" />
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

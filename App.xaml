@@ -2,6 +2,8 @@
     x:Class="TransportationAnalyticsHub.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:addView="clr-namespace:TransportationAnalyticsHub.MVVM.View.AddViews"
+    xmlns:addViewModel="clr-namespace:TransportationAnalyticsHub.MVVM.ViewModel.AddViewModel"
     xmlns:local="clr-namespace:TransportationAnalyticsHub"
     xmlns:view="clr-namespace:TransportationAnalyticsHub.MVVM.View"
     xmlns:viewModel="clr-namespace:TransportationAnalyticsHub.MVVM.ViewModel">
@@ -44,6 +46,12 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type TypeName=viewModel:RaportRidesCostViewModel}">
                 <view:RaportRidesCostView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=addViewModel:AddRideFormViewModel}">
+                <addView:AddRideFormView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=addViewModel:AddRideAddressesViewModel}">
+                <addView:AddRideAddressesView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

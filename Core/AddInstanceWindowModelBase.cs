@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using System.Windows;
 
 namespace TransportationAnalyticsHub.Core
 {
@@ -10,9 +11,24 @@ namespace TransportationAnalyticsHub.Core
 
         protected SourceT UpdatingObject;
 
-        public RelayCommand CloseCommand => new RelayCommand(_ => Window.Close());
+        public AddInstanceWindowModelBase()
+        {
+            CloseCommand = new RelayCommand(_ => CloseWindow());
+            SaveCommand = new RelayCommand(_ => Save());
+        }
 
-        public RelayCommand SaveCommand => new RelayCommand(_ =>
+        public RelayCommand CloseCommand { get; set; }
+
+        public RelayCommand SaveCommand { get; set; }
+
+        public virtual void FillFields(SourceT source) { }
+
+        protected virtual async void SaveChanges() { }
+
+        protected virtual bool ValidateRequiredFields() => true;
+
+        protected void CloseWindow() => Window.Close();
+        protected void Save()
         {
             if (!ValidateRequiredFields())
             {
@@ -22,12 +38,6 @@ namespace TransportationAnalyticsHub.Core
 
             SaveChanges();
             Window.Close();
-        });
-
-        public virtual void FillFields(SourceT source) { }
-
-        protected virtual async void SaveChanges() { }
-
-        protected virtual bool ValidateRequiredFields() => true;
+        }
     }
 }

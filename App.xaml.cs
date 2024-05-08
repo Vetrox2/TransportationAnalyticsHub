@@ -2,8 +2,11 @@
 using System.Windows;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.View;
+using TransportationAnalyticsHub.MVVM.View.AddViews;
 using TransportationAnalyticsHub.MVVM.ViewModel;
+using TransportationAnalyticsHub.MVVM.ViewModel.AddViewModel;
 using TransportationAnalyticsHub.MVVM.WindowModels;
+using TransportationAnalyticsHub.MVVM.Windows;
 
 namespace TransportationAnalyticsHub
 {
@@ -14,12 +17,12 @@ namespace TransportationAnalyticsHub
         {
             var services = new ServiceCollection();
 
-            //Views
+            //Main Window Views
             services.AddSingleton<MainWindow>(provider => new MainWindow()
             {
-                DataContext = provider.GetRequiredService<MainWindowViewModel>(),
+                DataContext = provider.GetRequiredService<MainWindowModel>(),
             });
-            services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<MainWindowModel>();
 
             services.AddSingleton<HomeViewModel>();
 
@@ -52,6 +55,25 @@ namespace TransportationAnalyticsHub
                 DataContext = provider.GetRequiredService<RidesViewModel>(),
             });
             services.AddSingleton<RidesViewModel>();
+
+            //Add Ride Views
+            services.AddSingleton<AddRideWindow>(provider => new AddRideWindow()
+            {
+                DataContext = provider.GetRequiredService<AddRideWindowModel>(),
+            });
+            services.AddSingleton<AddRideWindowModel>();
+
+            services.AddSingleton<AddRideFormView>(provider => new AddRideFormView()
+            {
+                DataContext = provider.GetRequiredService<AddRideFormViewModel>(),
+            });
+            services.AddSingleton<AddRideFormViewModel>();
+
+            services.AddSingleton<AddRideAddressesView>(provider => new AddRideAddressesView()
+            {
+                DataContext = provider.GetRequiredService<AddRideAddressesViewModel>(),
+            });
+            services.AddSingleton<AddRideAddressesViewModel>();
 
             //Raports
             services.AddSingleton<RaportDriversWorkTimeView>(provider => new RaportDriversWorkTimeView()
@@ -89,7 +111,7 @@ namespace TransportationAnalyticsHub
         protected override void OnStartup(StartupEventArgs e)
         {
             var mainWindow = serviceProvider.GetService<MainWindow>();
-            var mainWindowVM = serviceProvider.GetService<MainWindowViewModel>();
+            var mainWindowVM = serviceProvider.GetService<MainWindowModel>();
             mainWindowVM.Window = mainWindow;
             mainWindow.Show();
             base.OnStartup(e);

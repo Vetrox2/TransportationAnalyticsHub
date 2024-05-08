@@ -4,15 +4,18 @@ namespace TransportationAnalyticsHub.MVVM.Model
 {
     public static class DataConverter
     {
-        private static readonly string[] DateFormats = ["MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy", "M/d/yyyy"];
+        private static readonly string[] DateFormats = ["MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy", "M/d/yyyy","H:mm d.MM.yyyy"];
 
         public static decimal ConvertToDecimal(string input) => decimal.Parse(input.Replace('.', ','));
         public static double ConvertToDouble(string input) => double.Parse(input.Replace('.', ','));
 
-        public static DateTime ConvertToDateTime(string input)
+        public static DateTime ConvertToDateTime(string input, bool eraseTime = true)
         {
             DateTime dateT;
-            DateTime.TryParseExact(input.Substring(0, input.IndexOf(' ')), DateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateT);
+            if (eraseTime)
+                input = input.Substring(0, input.IndexOf(' '));
+
+            DateTime.TryParseExact(input, DateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateT);
             return dateT;
         }
 
