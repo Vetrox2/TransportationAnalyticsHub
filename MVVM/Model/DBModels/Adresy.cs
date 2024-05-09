@@ -1,4 +1,7 @@
-﻿namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
+﻿using System;
+using System.Collections.Generic;
+
+namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 public partial class Adresy
 {
@@ -18,5 +21,5 @@ public partial class Adresy
 
     public virtual ICollection<Kierowcy> Kierowcies { get; set; } = new List<Kierowcy>();
 
-    public virtual ICollection<Przejazdy> Przejazds { get; set; } = new List<Przejazdy>();
+    public virtual ICollection<PunktyTrasy> PunktyTrasies { get; set; } = new List<PunktyTrasy>();
 }

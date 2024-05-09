@@ -11,4 +11,4 @@ W zakłade wyszukaj użyj ListView (albo datagrid?) do wyświetlawnia rekordów 
 
 
 Generowanie bazy danych:
-Scaffold-DbContext "Server="";Database="";Trusted_Connection=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model
+Scaffold-DbContext "Server=;Database=;Trusted_Connection=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir MVVM/Model

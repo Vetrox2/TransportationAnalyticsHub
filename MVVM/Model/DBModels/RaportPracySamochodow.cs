@@ -1,6 +1,9 @@
-﻿namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
+﻿using System;
+using System.Collections.Generic;
 
-public partial class RozliczeniePracySamochodow
+namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
+
+public partial class RaportPracySamochodow
 {
     public int SamochodCiezarowyId { get; set; }
 

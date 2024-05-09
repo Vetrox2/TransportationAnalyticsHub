@@ -1,4 +1,7 @@
-﻿namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
+﻿using System;
+using System.Collections.Generic;
+
+namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 public partial class Przejazdy
 {
@@ -32,9 +35,9 @@ public partial class Przejazdy
 
     public virtual Kierowcy Kierowca { get; set; } = null!;
 
+    public virtual ICollection<PunktyTrasy> PunktyTrasies { get; set; } = new List<PunktyTrasy>();
+
     public virtual SamochodyCiezarowe SamochodCiezarowy { get; set; } = null!;
 
     public virtual TypyTowaru TypTowaruNavigation { get; set; } = null!;
-
-    public virtual ICollection<Adresy> Adres { get; set; } = new List<Adresy>();
 }

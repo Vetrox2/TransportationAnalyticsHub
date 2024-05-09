@@ -237,8 +237,12 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel.AddViewModel
             cargoVolume = (ride.WspolczynnikObjetosci * ride.SamochodCiezarowy.MaksymalnaObjetoscZaladunkuM3).ToString();
         }
 
-        public void InsertDataToObject()
+        public bool InsertDataToObject()
         {
+            if (SelectedDriver == null || Salary.IsNullOrEmpty() || BeginDate.IsNullOrEmpty() || EndDate.IsNullOrEmpty() || SelectedCar == null || UsedFuel.IsNullOrEmpty() 
+                || FuelPrice.IsNullOrEmpty() || SelectedCargoType == null || CargoWeight.IsNullOrEmpty())
+                return false;
+
             ride.KierowcaId = SelectedDriver.Id;
             ride.StawkaGodzinowaBruttoKierowcy = DataConverter.ConvertToDecimal(Salary);
             ride.DataRozpoczeciaPrzejazdu = DataConverter.ConvertToDateTime(BeginDate, false);
@@ -246,12 +250,14 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel.AddViewModel
             ride.SamochodCiezarowyId = SelectedCar.Id;
             ride.ZuzytePaliwoL = DataConverter.ConvertToDouble(UsedFuel);
             ride.CenaPaliwaZlL = DataConverter.ConvertToDecimal(FuelPrice);
-            ride.DodatkoweKoszty = DataConverter.ConvertToDecimal(ExtraCost);
+            ride.DodatkoweKoszty = ExtraCost == null? null : DataConverter.ConvertToDecimal(ExtraCost);
             ride.TypTowaru = SelectedCargoType.Text;
 
             SamochodyCiezarowe car = allCars.Find(car => car.SamochodCiezarowyId == ride.SamochodCiezarowyId);
             ride.WspolczynnikLadownosci = DataConverter.ConvertToDouble(CargoWeight) / car.MaksymalnaLadownoscT;
-            ride.WspolczynnikObjetosci = car.MaksymalnaObjetoscZaladunkuM3 == null ? null : DataConverter.ConvertToDouble(cargoVolume) / car.MaksymalnaObjetoscZaladunkuM3;
+            ride.WspolczynnikObjetosci = car.MaksymalnaObjetoscZaladunkuM3 == null || cargoVolume.IsNullOrEmpty() ? null : DataConverter.ConvertToDouble(cargoVolume) / car.MaksymalnaObjetoscZaladunkuM3;
+
+            return true;
         }
     }
 }

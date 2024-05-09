@@ -57,18 +57,18 @@
                                 Background="Transparent"
                                 BorderThickness="0"
                                 Foreground="#d5d5d6"
-                                ItemsSource="{Binding Adres}">
+                                ItemsSource="{Binding PunktyTrasies}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock>
                                             <TextBlock.Text>
                                                 <MultiBinding StringFormat="{}{0} {1} {2}, {3} {4}, {5}">
-                                                    <Binding Path="Ulica" />
-                                                    <Binding Path="NumerBudynku" />
-                                                    <Binding Path="NumerLokalu" />
-                                                    <Binding Path="KodPocztowy" />
-                                                    <Binding Path="Miejscowosc" />
-                                                    <Binding Path="Kraj" />
+                                                    <Binding Path="Adres.Ulica" />
+                                                    <Binding Path="Adres.NumerBudynku" />
+                                                    <Binding Path="Adres.NumerLokalu" />
+                                                    <Binding Path="Adres.KodPocztowy" />
+                                                    <Binding Path="Adres.Miejscowosc" />
+                                                    <Binding Path="Adres.Kraj" />
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>

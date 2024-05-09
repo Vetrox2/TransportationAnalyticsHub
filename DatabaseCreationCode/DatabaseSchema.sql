@@ -66,7 +66,7 @@ CREATE TABLE RozliczeniePrzejazdowSamochodowCiezarowych.dbo.Przejazdy(
 );
 
 CREATE TABLE RozliczeniePrzejazdowSamochodowCiezarowych.dbo.PunktyTrasy(
+	PunktTrasyID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	PrzejazdID INT FOREIGN KEY REFERENCES RozliczeniePrzejazdowSamochodowCiezarowych.dbo.Przejazdy(PrzejazdID) NOT NULL,
 	AdresID INT FOREIGN KEY REFERENCES RozliczeniePrzejazdowSamochodowCiezarowych.dbo.Adresy(AdresID) NOT NULL,
-	CONSTRAINT PK_PunktTrasy PRIMARY KEY (PrzejazdID, AdresID) 
 );

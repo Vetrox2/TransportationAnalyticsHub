@@ -9,13 +9,13 @@ using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.MVVM.ViewModel
 {
-    internal class RaportCarsPayoffViewModel : RaportViewModelBase<RozliczeniePracySamochodow>
+    internal class RaportCarsPayoffViewModel : RaportViewModelBase<RaportPracySamochodow>
     {
         public async override void UpdateSource()
         {
             using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
             {
-                Source = await context.RozliczeniePracySamochodows.ToListAsync();
+                Source = await context.RaportPracySamochodows.ToListAsync();
             }
         }
     }

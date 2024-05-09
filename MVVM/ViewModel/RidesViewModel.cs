@@ -49,7 +49,7 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
                 Addresses = await context.Adresies.ToListAsync();
                 Drivers = await context.Kierowcies.ToListAsync();
                 Cars = await context.SamochodyCiezarowes.ToListAsync();
-                Source = await context.Przejazdies.Include(ad => ad.Adres).ToListAsync();
+                Source = await context.Przejazdies.Include(ad => ad.PunktyTrasies).ToListAsync();
             }
         }
     }

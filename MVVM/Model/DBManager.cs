@@ -1,4 +1,5 @@
-﻿using TransportationAnalyticsHub.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.MVVM.Model
@@ -37,6 +38,30 @@ namespace TransportationAnalyticsHub.MVVM.Model
                     context.SaveChanges();
                 }
                 catch (Exception e) { }
+            }
+
+            vmToUpdate.UpdateSource();
+        }
+
+        public static void ReplaceRidePointsInDB(List<PunktyTrasy> points, ViewModelBase vmToUpdate)
+        {
+            using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
+            {
+                var pointsToRemove = context.PunktyTrasies.Where(p => p.PrzejazdId == points[0].Przejazd.PrzejazdId).ToList();
+                pointsToRemove.ForEach(point =>
+                {
+                    context.Remove(point);
+                });
+                context.SaveChanges();
+
+                points.ForEach(point =>
+                {
+                    point.AdresId = point.Adres.AdresId;
+                    point.Adres = null;
+                    context.PunktyTrasies.Attach(point);
+                });
+
+                context.SaveChanges();
             }
 
             vmToUpdate.UpdateSource();

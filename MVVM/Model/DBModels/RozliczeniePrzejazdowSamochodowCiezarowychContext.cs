@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace TransportationAnalyticsHub.MVVM.Model.DBModels;
 
@@ -25,11 +27,13 @@ public partial class RozliczeniePrzejazdowSamochodowCiezarowychContext : DbConte
 
     public virtual DbSet<Przejazdy> Przejazdies { get; set; }
 
+    public virtual DbSet<PunktyTrasy> PunktyTrasies { get; set; }
+
+    public virtual DbSet<RaportPracySamochodow> RaportPracySamochodows { get; set; }
+
     public virtual DbSet<RodzajePaliwa> RodzajePaliwas { get; set; }
 
     public virtual DbSet<RozliczeniePracyKierowcow> RozliczeniePracyKierowcows { get; set; }
-
-    public virtual DbSet<RozliczeniePracySamochodow> RozliczeniePracySamochodows { get; set; }
 
     public virtual DbSet<SamochodyCiezarowe> SamochodyCiezarowes { get; set; }
 
@@ -37,13 +41,13 @@ public partial class RozliczeniePrzejazdowSamochodowCiezarowychContext : DbConte
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=ZAKOLAK\\SQLEXPRESS;Database=RozliczeniePrzejazdowSamochodowCiezarowych;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=Zakolak\\SQLEXPRESS;Database=RozliczeniePrzejazdowSamochodowCiezarowych;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Adresy>(entity =>
         {
-            entity.HasKey(e => e.AdresId).HasName("PK__Adresy__DA8DEA6C9E324DB6");
+            entity.HasKey(e => e.AdresId).HasName("PK__Adresy__DA8DEA6C6649BB66");
 
             entity.ToTable("Adresy");
 
@@ -73,7 +77,7 @@ public partial class RozliczeniePrzejazdowSamochodowCiezarowychContext : DbConte
 
         modelBuilder.Entity<Kierowcy>(entity =>
         {
-            entity.HasKey(e => e.KierowcaId).HasName("PK__Kierowcy__6DD07FBD6CE16E0B");
+            entity.HasKey(e => e.KierowcaId).HasName("PK__Kierowcy__6DD07FBD1708EB27");
 
             entity.ToTable("Kierowcy", tb => tb.HasTrigger("Trigger_Stawka_Min"));
 
@@ -99,7 +103,7 @@ public partial class RozliczeniePrzejazdowSamochodowCiezarowychContext : DbConte
 
         modelBuilder.Entity<Konfiguracja>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Konfigur__3214EC276F7BCFF3");
+            entity.HasKey(e => e.Id).HasName("PK__Konfigur__3214EC27BF96E7ED");
 
             entity.ToTable("Konfiguracja");
 
@@ -126,7 +130,7 @@ public partial class RozliczeniePrzejazdowSamochodowCiezarowychContext : DbConte
 
         modelBuilder.Entity<Przejazdy>(entity =>
         {
-            entity.HasKey(e => e.PrzejazdId).HasName("PK__Przejazd__04BBB103611D836E");
+            entity.HasKey(e => e.PrzejazdId).HasName("PK__Przejazd__04BBB103294EA8E7");
 
             entity.ToTable("Przejazdy", tb =>
                 {
@@ -163,30 +167,51 @@ public partial class RozliczeniePrzejazdowSamochodowCiezarowychContext : DbConte
                 .HasForeignKey(d => d.TypTowaru)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Przejazdy__TypTo__4F7CD00D");
+        });
 
-            entity.HasMany(d => d.Adres).WithMany(p => p.Przejazds)
-                .UsingEntity<Dictionary<string, object>>(
-                    "PunktyTrasy",
-                    r => r.HasOne<Adresy>().WithMany()
-                        .HasForeignKey("AdresId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__PunktyTra__Adres__5AEE82B9"),
-                    l => l.HasOne<Przejazdy>().WithMany()
-                        .HasForeignKey("PrzejazdId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__PunktyTra__Przej__59FA5E80"),
-                    j =>
-                    {
-                        j.HasKey("PrzejazdId", "AdresId").HasName("PK_PunktTrasy");
-                        j.ToTable("PunktyTrasy");
-                        j.IndexerProperty<int>("PrzejazdId").HasColumnName("PrzejazdID");
-                        j.IndexerProperty<int>("AdresId").HasColumnName("AdresID");
-                    });
+        modelBuilder.Entity<PunktyTrasy>(entity =>
+        {
+            entity.HasKey(e => e.PunktTrasyId).HasName("PK__PunktyTr__38C1146522AE9712");
+
+            entity.ToTable("PunktyTrasy");
+
+            entity.Property(e => e.PunktTrasyId).HasColumnName("PunktTrasyID");
+            entity.Property(e => e.AdresId).HasColumnName("AdresID");
+            entity.Property(e => e.PrzejazdId).HasColumnName("PrzejazdID");
+
+            entity.HasOne(d => d.Adres).WithMany(p => p.PunktyTrasies)
+                .HasForeignKey(d => d.AdresId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__PunktyTra__Adres__5AEE82B9");
+
+            entity.HasOne(d => d.Przejazd).WithMany(p => p.PunktyTrasies)
+                .HasForeignKey(d => d.PrzejazdId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__PunktyTra__Przej__59FA5E80");
+        });
+
+        modelBuilder.Entity<RaportPracySamochodow>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("RaportPracySamochodow");
+
+            entity.Property(e => e.CzasPrzejazduH).HasColumnName("Czas Przejazdu (h)");
+            entity.Property(e => e.LacznaOdleglosc).HasColumnName("Laczna odleglosc");
+            entity.Property(e => e.Miesiac)
+                .HasMaxLength(25)
+                .IsUnicode(false);
+            entity.Property(e => e.Rejestracja)
+                .HasMaxLength(8)
+                .IsUnicode(false);
+            entity.Property(e => e.SamochodCiezarowyId).HasColumnName("SamochodCiezarowyID");
+            entity.Property(e => e.SredniZaladunek).HasColumnName("Sredni zaladunek");
+            entity.Property(e => e.SrednieSpalanie100km).HasColumnName("Srednie spalanie (100km)");
         });
 
         modelBuilder.Entity<RodzajePaliwa>(entity =>
         {
-            entity.HasKey(e => e.NazwaPaliwa).HasName("PK__RodzajeP__D49B36C8254F9537");
+            entity.HasKey(e => e.NazwaPaliwa).HasName("PK__RodzajeP__D49B36C8A89320E6");
 
             entity.ToTable("RodzajePaliwa");
 
@@ -208,32 +233,13 @@ public partial class RozliczeniePrzejazdowSamochodowCiezarowychContext : DbConte
             entity.Property(e => e.WynagrodzenieZl).HasColumnName("Wynagrodzenie (zl)");
         });
 
-        modelBuilder.Entity<RozliczeniePracySamochodow>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("RozliczeniePracySamochodow");
-
-            entity.Property(e => e.CzasPrzejazduH).HasColumnName("Czas Przejazdu (h)");
-            entity.Property(e => e.LacznaOdleglosc).HasColumnName("Laczna odleglosc");
-            entity.Property(e => e.Miesiac)
-                .HasMaxLength(25)
-                .IsUnicode(false);
-            entity.Property(e => e.Rejestracja)
-                .HasMaxLength(8)
-                .IsUnicode(false);
-            entity.Property(e => e.SamochodCiezarowyId).HasColumnName("SamochodCiezarowyID");
-            entity.Property(e => e.SredniZaladunek).HasColumnName("Sredni zaladunek");
-            entity.Property(e => e.SrednieSpalanie100km).HasColumnName("Srednie spalanie (100km)");
-        });
-
         modelBuilder.Entity<SamochodyCiezarowe>(entity =>
         {
-            entity.HasKey(e => e.SamochodCiezarowyId).HasName("PK__Samochod__96AC3CA3795A4B33");
+            entity.HasKey(e => e.SamochodCiezarowyId).HasName("PK__Samochod__96AC3CA31356167C");
 
             entity.ToTable("SamochodyCiezarowe");
 
-            entity.HasIndex(e => e.Rejestracja, "UQ__Samochod__3517DB0A8FF792F2").IsUnique();
+            entity.HasIndex(e => e.Rejestracja, "UQ__Samochod__3517DB0A361DCC1D").IsUnique();
 
             entity.Property(e => e.SamochodCiezarowyId).HasColumnName("SamochodCiezarowyID");
             entity.Property(e => e.MaksymalnaLadownoscT).HasColumnName("MaksymalnaLadownosc(t)");
@@ -256,7 +262,7 @@ public partial class RozliczeniePrzejazdowSamochodowCiezarowychContext : DbConte
 
         modelBuilder.Entity<TypyTowaru>(entity =>
         {
-            entity.HasKey(e => e.NazwaTypu).HasName("PK__TypyTowa__E14946462C3DEC0F");
+            entity.HasKey(e => e.NazwaTypu).HasName("PK__TypyTowa__E149464673E267EB");
 
             entity.ToTable("TypyTowaru");
 
