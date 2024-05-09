@@ -1,10 +1,11 @@
 ﻿using System.Globalization;
+using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
 namespace TransportationAnalyticsHub.MVVM.Model
 {
     public static class DataConverter
     {
-        private static readonly string[] DateFormats = ["MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy", "M/d/yyyy","H:mm d.MM.yyyy"];
+        private static readonly string[] DateFormats = ["MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy", "M/d/yyyy", "H:mm d.MM.yyyy"];
 
         public static decimal ConvertToDecimal(string input) => decimal.Parse(input.Replace('.', ','));
         public static double ConvertToDouble(string input) => double.Parse(input.Replace('.', ','));
@@ -28,5 +29,6 @@ namespace TransportationAnalyticsHub.MVVM.Model
             return formatedDate + " 12:00:00 AM";
         }
 
+        public static string ConvertAddressToString(Adresy address) => $"{address.Ulica} {address.NumerBudynku} {address.NumerLokalu}, {address.KodPocztowy} {address.Miejscowosc}, {address.Kraj}";
     }
 }

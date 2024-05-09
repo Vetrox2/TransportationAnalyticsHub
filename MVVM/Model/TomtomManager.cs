@@ -1,59 +1,62 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System.IO;
 using System.Net.Http;
 
 namespace TransportationAnalyticsHub.MVVM.Model
 {
     public class TomtomManager
     {
-        const string Your_API_Key = "";
-        public TomtomManager()
-        {
-            List<string> Addresses = new()
-            {
-                "Juliusza Słowackiego 37, 40-000 Katowice, Polska",
-                "Raciborska 16, 44-200 Rybnik, Polska"
-            };
+        static string Your_API_Key;
 
+        public static async Task<float> GetDistance(List<string> addresses)
+        {
+            if (Your_API_Key.IsNullOrEmpty())
+                Your_API_Key = File.ReadAllText("TomTomApiKey.txt");
 
             List<string> Coordinates = new();
+
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    Addresses.ForEach(async address =>
+                    addresses.ForEach(async address =>
                     {
                         var cords = await GetCoordinates(address, client);
                         if (cords != null)
-                        {
                             Coordinates.Add(cords);
+                    });
 
-                        }
-                    }
-                    );
                     string coordinatesStr = string.Join(':', Coordinates);
-                    Console.WriteLine(coordinatesStr);
                     string query = $"https://api.tomtom.com/routing/1/calculateRoute/{coordinatesStr}/json?key={Your_API_Key}";
-                    //var response = await client.GetAsync(query).Result.Content.ReadAsStringAsync();
-                    //Console.WriteLine(response);
+                    var response = await client.GetAsync(query).Result.Content.ReadAsStringAsync();
+
+                    Console.WriteLine(response);
                 }
                 catch
                 {
                     Console.WriteLine("error");
                 }
             }
+
+            return 1;
         }
-        async Task<string>? GetCoordinates(string address, HttpClient client)
+
+        private static async Task<string?> GetCoordinates(string address, HttpClient client)
         {
             address = Uri.EscapeDataString(address);
             string query = $"https://api.tomtom.com/search/2/geocode/{address}.json?key={Your_API_Key}";
+
             var responsObject = await GetDeserializedResponse<ResponseModel>(query, client);
             if (responsObject == null)
                 return null;
+
             double maxScore = responsObject.Results.Max(result => result.MatchConfidence.score);
             return responsObject.Results.First(result => result.MatchConfidence.score == maxScore).Position.lat.ToString().Replace(',', '.') + ","
                 + responsObject.Results.First(result => result.MatchConfidence.score == maxScore).Position.lon.ToString().Replace(',', '.');
         }
-        async Task<T>? GetDeserializedResponse<T>(string query, HttpClient client)
+
+        private static async Task<T?> GetDeserializedResponse<T>(string query, HttpClient client)
         {
             var response = await client.GetAsync(query).Result.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(response);

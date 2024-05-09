@@ -84,7 +84,9 @@ namespace TransportationAnalyticsHub.MVVM.WindowModels
 
         protected override async void SaveChanges() 
         {
-            ride.LacznaOdlegloscPrzejazduKm = 1;
+            var addresses = new List<string>();
+            ridePoints.ForEach(point => addresses.Add(DataConverter.ConvertAddressToString(point.Adres)));
+            ride.LacznaOdlegloscPrzejazduKm = await TomtomManager.GetDistance(addresses);
 
             if(UpdateMode)
                 DBManager.UpdateItemInDB(ride, CallingVm);
