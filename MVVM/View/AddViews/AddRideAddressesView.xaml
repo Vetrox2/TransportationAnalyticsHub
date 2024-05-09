@@ -29,7 +29,10 @@
                 SelectedItem="{Binding Selected}"
                 Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="Adresy">
+                    <DataGridTextColumn
+                        Width="*"
+                        MaxWidth="640"
+                        Header="Adresy">
                         <DataGridTextColumn.Binding>
                             <MultiBinding StringFormat="{}{0} {1} {2}, {3} {4}, {5}">
                                 <Binding Path="Ulica" />

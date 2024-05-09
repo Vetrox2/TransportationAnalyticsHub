@@ -23,6 +23,8 @@ namespace TransportationAnalyticsHub.MVVM.WindowModels
             NavigateToRaportDriversPayoff = new(_ => { Navigation.NavigateTo<RaportDriversPayoffViewModel>(); });
             NavigateToRaportCarsPayoff = new(_ => { Navigation.NavigateTo<RaportCarsPayoffViewModel>(); });
             NavigateToRaportRidesCost = new(_ => { Navigation.NavigateTo<RaportRidesCostViewModel>(); });
+
+            navigation.NavigateTo<HomeViewModel>();
         }
 
         public RelayCommand MinimizeWindow => new(_ => Window.WindowState = WindowState.Minimized);
