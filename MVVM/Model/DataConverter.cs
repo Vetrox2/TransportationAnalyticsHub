@@ -29,6 +29,6 @@ namespace TransportationAnalyticsHub.MVVM.Model
             return formatedDate + " 12:00:00 AM";
         }
 
-        public static string ConvertAddressToString(Adresy address) => $"{address.Ulica} {address.NumerBudynku} {address.NumerLokalu}, {address.KodPocztowy} {address.Miejscowosc}, {address.Kraj}";
+        public static string ConvertAddressToString(Adresy address) => $"{address.Ulica} {address.NumerBudynku}, {address.KodPocztowy} {address.Miejscowosc}, {address.Kraj}";
     }
 }

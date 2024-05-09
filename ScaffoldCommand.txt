@@ -1,0 +1,2 @@
+Generowanie bazy danych:
+Scaffold-DbContext "Server=;Database=;Trusted_Connection=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir MVVM/Model

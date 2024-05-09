@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 
@@ -7,12 +8,18 @@ namespace TransportationAnalyticsHub.MVVM.Model
 {
     public class TomtomManager
     {
-        static string Your_API_Key;
+        static string Your_API_Key = "";
 
         public static async Task<float> GetDistance(List<string> addresses)
         {
             if (Your_API_Key.IsNullOrEmpty())
-                Your_API_Key = File.ReadAllText("TomTomApiKey.txt");
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "TomTomApiKey.txt");
+                if (File.Exists(path))
+                    Your_API_Key = File.ReadAllText(path);
+                else
+                    return 1;
+            }
 
             List<string> Coordinates = new();
 
@@ -26,6 +33,9 @@ namespace TransportationAnalyticsHub.MVVM.Model
                         if (cords != null)
                             Coordinates.Add(cords);
                     });
+
+                    if (Coordinates.Count != addresses.Count)
+                        return 1;
 
                     string coordinatesStr = string.Join(':', Coordinates);
                     string query = $"https://api.tomtom.com/routing/1/calculateRoute/{coordinatesStr}/json?key={Your_API_Key}";
@@ -58,8 +68,15 @@ namespace TransportationAnalyticsHub.MVVM.Model
 
         private static async Task<T?> GetDeserializedResponse<T>(string query, HttpClient client)
         {
-            var response = await client.GetAsync(query).Result.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(response);
+            try
+            {
+                var response = await client.GetAsync(query).Result.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(response);
+            }
+            catch(Exception ex)
+            {
+                return default;
+            }
         }
     }
 
