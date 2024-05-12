@@ -18,12 +18,12 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="515" />
             </Grid.ColumnDefinitions>
 
             <prefabs:TextInputField
                 Margin="10,0"
-                Caption="Wpisz wartość i wybierz opcję po prawej stronie:"
+                Caption="Wpisz wartość i wybierz opcję:"
                 Input="{Binding Input, Mode=TwoWay}" />
 
             <Grid Grid.Column="1">

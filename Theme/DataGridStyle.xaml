@@ -14,7 +14,7 @@
         <Setter Property="Background" Value="#404347" />
         <Setter Property="RowBackground" Value="#404347" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
-        <Setter Property="MaxColumnWidth" Value="500" />
+        <Setter Property="MaxColumnWidth" Value="600" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
 
 
