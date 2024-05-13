@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Windows.Forms;
 using TransportationAnalyticsHub.Core;
 using TransportationAnalyticsHub.MVVM.Model.DBModels;
 
@@ -11,7 +12,7 @@ namespace TransportationAnalyticsHub.MVVM.Model
             using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
             {
                 context.Add(newObject);
-                context.SaveChanges();
+                SaveChanges(context);
             }
 
             vmToUpdate.UpdateSource();
@@ -22,7 +23,7 @@ namespace TransportationAnalyticsHub.MVVM.Model
             using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
             {
                 context.Update(newObject);
-                context.SaveChanges();
+                SaveChanges(context);
             }
 
             vmToUpdate.UpdateSource();
@@ -33,11 +34,7 @@ namespace TransportationAnalyticsHub.MVVM.Model
             using (var context = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
             {
                 context.Remove(item);
-                try
-                {
-                    context.SaveChanges();
-                }
-                catch (Exception e) { }
+                SaveChanges(context);
             }
 
             vmToUpdate.UpdateSource();
@@ -52,7 +49,7 @@ namespace TransportationAnalyticsHub.MVVM.Model
                 {
                     context.Remove(point);
                 });
-                context.SaveChanges();
+                SaveChanges(context);
 
                 points.ForEach(point =>
                 {
@@ -61,10 +58,22 @@ namespace TransportationAnalyticsHub.MVVM.Model
                     context.PunktyTrasies.Attach(point);
                 });
 
-                context.SaveChanges();
+                SaveChanges(context);
             }
 
             vmToUpdate.UpdateSource();
+        }
+        
+        private static void SaveChanges(RozliczeniePrzejazdowSamochodowCiezarowychContext context)
+        {
+            try
+            {
+                context.SaveChanges();
+            }
+            catch(Exception e) 
+            {
+                MessageBox.Show("Nie udało się zapisać zmian: " + e.Message);
+            }
         }
     }
 }

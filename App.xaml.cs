@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using TransportationAnalyticsHub.Core;
+using TransportationAnalyticsHub.MVVM.Model.DBModels;
 using TransportationAnalyticsHub.MVVM.View;
 using TransportationAnalyticsHub.MVVM.View.AddViews;
 using TransportationAnalyticsHub.MVVM.ViewModel;
@@ -110,6 +112,15 @@ namespace TransportationAnalyticsHub
         }
         protected override void OnStartup(StartupEventArgs e)
         {
+            using (var dbContext = new RozliczeniePrzejazdowSamochodowCiezarowychContext())
+            {
+                if (!dbContext.Database.CanConnect())
+                {
+                    MessageBox.Show("Can't connect to the database");
+                    Application.Current.Shutdown();
+                    return;
+                }
+            }
             var mainWindow = serviceProvider.GetService<MainWindow>();
             var mainWindowVM = serviceProvider.GetService<MainWindowModel>();
             mainWindowVM.Window = mainWindow;
