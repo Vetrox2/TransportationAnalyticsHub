@@ -48,8 +48,23 @@ namespace TransportationAnalyticsHub.MVVM.ViewModel
             if (Input.IsNullOrEmpty() || !DataValidator.ValidateDecimal(Input))
                 return;
 
-            Salary[0].StawkaMinimalnaBrutto = DataConverter.ConvertToDecimal(Input);
-            DBManager.UpdateItemInDB(Salary[0], this);
+            if (Salary.Count < 1)
+            {
+                Salary = new() 
+                { 
+                    new Konfiguracja() 
+                    { 
+                        Id = 1, 
+                        StawkaMinimalnaBrutto = DataConverter.ConvertToDecimal(Input) 
+                    } 
+                };
+                DBManager.AddNewItemToDB(Salary[0], this);
+            }
+            else
+            {
+                Salary[0].StawkaMinimalnaBrutto = DataConverter.ConvertToDecimal(Input);
+                DBManager.UpdateItemInDB(Salary[0], this);
+            }
         });
 
         public string Input
