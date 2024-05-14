@@ -1,7 +1,7 @@
 use RozliczeniePrzejazdowSamochodowCiezarowych
 
 INSERT INTO Konfiguracja
-VALUES (26)
+VALUES (1,26)
 
 INSERT INTO TypyTowaru
 VALUES ('Paleta')
